@@ -27,7 +27,7 @@ const {
 const canonicalUrl = canonical || new URL(Astro.url.pathname, siteConfig.domain).href;
 
 // Absolute OG image URL always points to production domain for rich social cards (WhatsApp, Twitter, Google)
-const defaultOgImage = `${siteConfig.domain}/images/logo.png`;
+const defaultOgImage = `${siteConfig.domain}/images/logo-v2.png`;
 const rawOgImage = ogImage || defaultOgImage;
 const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(rawOgImage, siteConfig.domain).href;
 ---
@@ -87,8 +87,8 @@ const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(raw
           "@id": `${siteConfig.domain}/#organization`,
           "name": siteConfig.siteName,
           "url": siteConfig.domain,
-          "logo": `${siteConfig.domain}/images/logo.png`,
-          "image": `${siteConfig.domain}/images/logo.png`,
+          "logo": `${siteConfig.domain}/images/logo-v2.png`,
+          "image": `${siteConfig.domain}/images/logo-v2.png`,
           "telephone": siteConfig.phoneRaw,
           "email": siteConfig.email,
           "address": {
@@ -155,7 +155,7 @@ const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(raw
       <div class="container logo-inner">
         <a href="/" class="site-main-logo" aria-label="dişli yağı Ana Sayfa">
           <img
-            src="/images/logo.png"
+            src="/images/logo-v2.png"
             alt="dişli yağı Logo"
             width="420"
             height="56"
@@ -256,7 +256,7 @@ const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(raw
       <div class="mobile-header-inner">
         <a href="/" class="mobile-logo-link" aria-label="dişli yağı Ana Sayfa">
           <img
-            src="/images/logo.png"
+            src="/images/logo-v2.png"
             alt="dişli yağı Logo"
           />
         </a>
@@ -281,7 +281,7 @@ const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(raw
       <div class="drawer-top-bar">
         <a href="/" class="drawer-brand-logo">
           <img
-            src="/images/logo.png"
+            src="/images/logo-v2.png"
             alt="dişli yağı Logo"
             height="32"
           />
@@ -441,7 +441,7 @@ const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(raw
         <div class="footer-col col-brand">
           <a href="/" class="footer-logo-link">
             <img
-              src="/images/logo-footer.png"
+              src="/images/logo-footer-v2.png"
               alt="dişli yağı Logo"
               class="footer-logo-img"
             />
