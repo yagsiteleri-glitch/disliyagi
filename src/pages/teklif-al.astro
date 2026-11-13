@@ -1,0 +1,386 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<Layout
+  title="Toptan dişli yağı Fiyat Teklifi Al | disliyagi.com"
+  description="Artoil, Castrol, Mobil, Petrol Ofisi ve Shell dişli yağı toptan ve perakende iskonto teklifi alın. İstanbul içi aynı gün, Türkiye geneli ambar teslimatı."
+>
+  <Breadcrumb items={[{ label: "Teklif Al" }]} />
+
+  <section class="teklif-form-section">
+    <div class="container">
+      <div class="teklif-form-grid">
+        <!-- Left Visuals -->
+        <div class="teklif-images-col">
+          <div class="img-box artoil-showcase-box">
+            <div class="showcase-badge">
+              <i class="fas fa-shield-alt"></i> Orijinal Fabrika Dolumu
+            </div>
+            <img
+              src="/images/banners/artoil-banner.png"
+              alt="Artoil Hydros dişli yağı"
+              loading="lazy"
+            />
+            <div class="showcase-caption">
+              <strong>Artoil Hydros & Endüstriyel Yağlar</strong>
+              <span>Toptan Alımlarda Özel İskonto Avantajı</span>
+            </div>
+          </div>
+
+          <div class="teklif-direct-phone-box">
+            <div class="tdp-icon"><i class="fas fa-headset"></i></div>
+            <div class="tdp-text">
+              <small>Beklemek istemiyor musunuz?</small>
+              <strong>Doğrudan Arayın: +90 506 940 1210</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Modernized Elementor Quote Form -->
+        <div class="teklif-form-col">
+          <div class="form-title-badge">HIZLI TEKLİF & İSKONTO TALEBİ</div>
+          <h2 class="form-title">Teklif Formu</h2>
+          <p class="form-sub-p">Aşağıdaki formu doldurarak ihtiyacınız olan dişli yağıları için 15 dakika içinde resmi fiyat teklifinizi alabilirsiniz.</p>
+
+          <form class="elementor-style-form" onsubmit="handleTeklifSubmit(event)">
+            <div class="form-row-half">
+              <div class="form-field-group">
+                <label for="f_name">Adınız *</label>
+                <input type="text" id="f_name" required placeholder="Adınız" />
+              </div>
+              <div class="form-field-group">
+                <label for="f_surname">Soyadınız *</label>
+                <input type="text" id="f_surname" required placeholder="Soyadınız" />
+              </div>
+            </div>
+
+            <div class="form-row-half">
+              <div class="form-field-group">
+                <label for="f_email">E-Posta Adresi *</label>
+                <input type="email" id="f_email" required placeholder="E-Posta Adresiniz" />
+              </div>
+              <div class="form-field-group">
+                <label for="f_phone">İletişim Numaranız *</label>
+                <input type="tel" id="f_phone" required placeholder="05XX XXX XX XX" />
+              </div>
+            </div>
+
+            <!-- Client Checkboxes with Modern Pill Styling -->
+            <div class="form-field-group">
+              <label>İstediğiniz Ürün Bilgileri (Birden fazla seçebilirsiniz)</label>
+              <div class="elementor-subgroup-inline">
+                <label class="cb-pill-option"><input type="checkbox" name="urun" value="Artoil Hydros HVI" /> <span>Artoil Hydros HVI</span></label>
+                <label class="cb-pill-option"><input type="checkbox" name="urun" value="Artoil Hydros" /> <span>Artoil Hydros</span></label>
+                <label class="cb-pill-option"><input type="checkbox" name="urun" value="Castrol Hyspin AWS" /> <span>Castrol Hyspin AWS</span></label>
+                <label class="cb-pill-option"><input type="checkbox" name="urun" value="Mobil DTE" /> <span>Mobil DTE</span></label>
+                <label class="cb-pill-option"><input type="checkbox" name="urun" value="Mobil Nuto H" /> <span>Mobil Nuto H</span></label>
+                <label class="cb-pill-option"><input type="checkbox" name="urun" value="Mobil Velocite Oil" /> <span>Mobil Velocite Oil</span></label>
+                <label class="cb-pill-option"><input type="checkbox" name="urun" value="Petrol Ofisi Hydro Oil" /> <span>Petrol Ofisi Hydro Oil</span></label>
+                <label class="cb-pill-option"><input type="checkbox" name="urun" value="Shell Tellus" /> <span>Shell Tellus</span></label>
+              </div>
+            </div>
+
+            <div class="form-field-group">
+              <label for="f_message">Mesajınız *</label>
+              <textarea id="f_message" rows="4" required placeholder="İstediğiniz ambalaj (teneke/varil), viskozite sınıfı ve tahmini adet miktarını yazabilirsiniz..."></textarea>
+            </div>
+
+            <!-- Honeypot anti-spam field (hidden from real users, bots fill it) -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="f_website">Website (boş bırakın)</label>
+              <input type="text" id="f_website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <button type="submit" class="btn-elementor-submit">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.52 0-3-.4-4.3-1.17l-.31-.18-3.19.84.85-3.11-.2-.32c-.85-1.36-1.3-2.94-1.3-4.57 0-4.7 3.83-8.53 8.54-8.53 2.28 0 4.42.89 6.03 2.5 1.61 1.61 2.5 3.75 2.5 6.03 0 4.71-3.83 8.53-8.52 8.53zm4.68-6.39c-.26-.13-1.52-.75-1.76-.84-.23-.09-.4-.13-.57.13-.17.26-.66.84-.81 1.01-.15.17-.3.19-.56.06-.26-.13-1.08-.4-2.06-1.27-.76-.68-1.28-1.52-1.43-1.78-.15-.26-.02-.4.11-.53.12-.11.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.89-.21-.5-.42-.43-.57-.44l-.49-.01c-.17 0-.45.06-.68.32-.23.26-.89.87-.89 2.12 0 1.25.91 2.46 1.04 2.63.13.17 1.8 2.75 4.36 3.86.61.26 1.09.42 1.46.54.61.2 1.17.17 1.61.1.49-.07 1.52-.62 1.74-1.22.21-.6.21-1.12.15-1.22-.06-.1-.23-.17-.49-.3z"/></svg>
+              <span>Teklif Al (WhatsApp İle İlet)</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  function handleTeklifSubmit(e) {
+    e.preventDefault();
+
+    // Honeypot check — if filled, it's a bot
+    const honeypot = document.getElementById('f_website');
+    if (honeypot && honeypot.value.trim() !== '') return;
+
+    const name = document.getElementById('f_name').value.trim();
+    const surname = document.getElementById('f_surname').value.trim();
+    const email = document.getElementById('f_email').value.trim();
+    const phone = document.getElementById('f_phone').value.trim();
+    const message = document.getElementById('f_message').value.trim();
+
+    const checked = Array.from(document.querySelectorAll('input[name="urun"]:checked'))
+      .map(cb => cb.value);
+
+    let text = `[disliyagi.com] TOPTAN FIYAT VE TEKLIF TALEBI\n\n`;
+    text += `Ad Soyad: ${name} ${surname}\n`;
+    text += `Telefon: ${phone}\n`;
+    if (email) text += `E-Posta: ${email}\n`;
+    if (checked.length > 0) text += `Talep Edilen Urunler: ${checked.join(', ')}\n`;
+    if (message) text += `Musteri Notu: ${message}\n`;
+    text += `\nKaynak: disliyagi.com Teklif Formu`;
+
+    window.open(`https://wa.me/905069401210?text=${encodeURIComponent(text)}`, '_blank');
+  }
+</script>
+
+<style>
+  /* Honeypot — invisible to real users, bots fill it */
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .product-top-crumb {
+    background: #0f172a;
+    padding: 12px 0;
+    font-size: 13.5px;
+  }
+  .crumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+  }
+  .crumb-nav a { color: #cbd5e1; }
+  .crumb-nav a:hover { color: #f59e0b; }
+  .sep { color: #475569; }
+  .current-crumb { color: #ffffff; font-weight: 600; }
+
+  .teklif-form-section {
+    padding: 50px 0 70px;
+    background: #ffffff;
+  }
+  .teklif-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 45px;
+    align-items: flex-start;
+  }
+
+  .teklif-images-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .artoil-showcase-box {
+    background: linear-gradient(135deg, #091a30 0%, #1e293b 100%);
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 30px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  }
+  .showcase-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .artoil-showcase-box img {
+    max-height: 260px;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.5));
+    border: none;
+    box-shadow: none;
+    margin-bottom: 20px;
+  }
+  .showcase-caption strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+  .showcase-caption span {
+    font-size: 12.5px;
+    color: #94a3b8;
+  }
+
+  .teklif-direct-phone-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 16px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  }
+  .tdp-icon {
+    font-size: 24px;
+    color: #f59e0b;
+  }
+  .tdp-text small {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+  }
+  .tdp-text strong {
+    color: #0f172a;
+    font-size: 14.5px;
+  }
+
+  .teklif-form-col {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 36px 40px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+  }
+  .form-title-badge {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: #d97706;
+    margin-bottom: 6px;
+  }
+  .form-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 6px;
+  }
+  .form-sub-p {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .elementor-style-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .form-row-half {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .form-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-field-group label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+  .form-field-group input, .form-field-group textarea {
+    padding: 12px 14px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+    background: #ffffff;
+  }
+  .form-field-group input:focus, .form-field-group textarea:focus {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+  }
+
+  /* Inline Checkboxes as clickable pill items */
+  .elementor-subgroup-inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 14px;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+  }
+  .cb-pill-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+    padding: 6px 10px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .cb-pill-option:hover {
+    border-color: #f59e0b;
+    background: #ffffff;
+  }
+  .cb-pill-option input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #1e3a8a;
+  }
+
+  /* Submit Button */
+  .btn-elementor-submit {
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 15px 34px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: fit-content;
+    box-shadow: 0 4px 14px rgba(30, 58, 138, 0.25);
+    transition: all 0.2s ease;
+    margin-top: 6px;
+  }
+  .btn-elementor-submit:hover {
+    background: #172554;
+    box-shadow: 0 6px 18px rgba(30, 58, 138, 0.35);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 900px) {
+    .teklif-form-grid {
+      grid-template-columns: 1fr;
+    }
+    .form-row-half {
+      grid-template-columns: 1fr;
+    }
+    .elementor-subgroup-inline {
+      grid-template-columns: 1fr;
+    }
+    .teklif-form-col {
+      padding: 24px;
+    }
+  }
+</style>

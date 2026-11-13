@@ -1,0 +1,1547 @@
+---
+import siteConfig from '../data/siteConfig.json';
+import products from '../data/products.json';
+import '../styles/global.css';
+
+const artoilProducts = products.filter(p => p.brand === 'artoil');
+const castrolProducts = products.filter(p => p.brand === 'castrol');
+const mobilProducts = products.filter(p => p.brand === 'mobil');
+const poProducts = products.filter(p => p.brand === 'petrol-ofisi');
+const shellProducts = products.filter(p => p.brand === 'shell');
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+}
+
+const {
+  title = `${siteConfig.siteName} - Güçlü Performans, Sorunsuz Çalışma!`,
+  description = siteConfig.metaDescription,
+  ogImage,
+  canonical
+} = Astro.props;
+
+// Absolute canonical URL always points to production domain for SEO
+const canonicalUrl = canonical || new URL(Astro.url.pathname, siteConfig.domain).href;
+
+// Absolute OG image URL always points to production domain for rich social cards (WhatsApp, Twitter, Google)
+const defaultOgImage = `${siteConfig.domain}/images/logo.png`;
+const rawOgImage = ogImage || defaultOgImage;
+const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(rawOgImage, siteConfig.domain).href;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="google-site-verification" content="rM7ew9Nw8WPRosYQdoORqTc2efyOhbAtnsxDFegg7lI" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="600" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:site_name" content={siteConfig.siteName} />
+    <meta property="og:locale" content="tr_TR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+
+    <!-- PWA / Mobile -->
+    <meta name="theme-color" content="#f59e0b" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <!-- Font Awesome with SRI for security -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Schema.org JSON-LD: Organization, WebSite & LocalBusiness -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "LocalBusiness"],
+          "@id": `${siteConfig.domain}/#organization`,
+          "name": siteConfig.siteName,
+          "url": siteConfig.domain,
+          "logo": `${siteConfig.domain}/images/logo.png`,
+          "image": `${siteConfig.domain}/images/logo.png`,
+          "telephone": siteConfig.phoneRaw,
+          "email": siteConfig.email,
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Arap Camii Mh. Bakır Sk. No:6/A",
+            "addressLocality": "Beyoğlu",
+            "addressRegion": "İstanbul",
+            "addressCountry": "TR"
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              "opens": "09:30",
+              "closes": "17:30"
+            }
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": siteConfig.phoneRaw,
+            "contactType": "sales",
+            "areaServed": "TR",
+            "availableLanguage": "Turkish"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": `${siteConfig.domain}/#website`,
+          "url": siteConfig.domain,
+          "name": siteConfig.siteName,
+          "publisher": {
+            "@id": `${siteConfig.domain}/#organization`
+          }
+        }
+      ]
+    })} />
+  </head>
+
+  <body>
+    <!-- Top Contact Bar (Clean Minimal White) -->
+    <div class="top-contact-bar">
+      <div class="container top-bar-inner">
+        <div class="top-announcement desktop-only">
+          <span class="badge-mini">⚡ TOPTAN SATIŞ</span>
+          <span class="announcement-text">%20'den Başlayan İskontolar & Aynı Gün Sevkiyat</span>
+        </div>
+        <div class="top-contact-actions">
+          <a href="tel:+905069401210" class="top-link">
+            <i class="fas fa-phone-alt"></i>
+            <span>+90 506 940 1210</span>
+          </a>
+          <span class="top-sep">|</span>
+          <a href={`https://wa.me/905069401210?text=${encodeURIComponent('[disliyagi.com] MUSTERI DESTEK HATTI\n\nMerhaba, hidrolik yaglari hakkinda detayli bilgi ve fiyat teklifi almak istiyorum.')}`} target="_blank" rel="noopener noreferrer" class="top-link top-wa">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp Sipariş</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Unified Sleek Desktop Header Layout (Restored Classic Multi-tier with White Minimal Top Bar) -->
+    <!-- Desktop Center Logo Row (Clean White, 96px) -->
+    <header class="logo-row desktop-header-only">
+      <div class="container logo-inner">
+        <a href="/" class="site-main-logo" aria-label="dişli yağı Ana Sayfa">
+          <img
+            src="/images/logo.png"
+            alt="dişli yağı Logo"
+            width="420"
+            height="56"
+          />
+        </a>
+      </div>
+    </header>
+
+    <!-- Desktop Main Navigation Bar (Signature Warm Amber Yellow, Sticky) -->
+    <nav class="main-navbar desktop-header-only" aria-label="Ana Menü">
+      <div class="container nav-inner">
+        <ul class="nav-links-list">
+          <li class="nav-item">
+            <a href="/" class="nav-a active">Ana Sayfa</a>
+          </li>
+
+          <!-- Artoil Menu -->
+          <li class="nav-item has-dropdown">
+            <a href="/artoil" class="nav-a">
+              Artoil <i class="fas fa-chevron-down nav-caret"></i>
+            </a>
+            <ul class="sub-nav-menu">
+              <li class="sub-nav-highlight"><a href="/artoil"><strong>Tüm Artoil Ürünleri ({artoilProducts.length}) →</strong></a></li>
+              {artoilProducts.slice(0, 5).map(p => (
+                <li><a href={`/urun/${p.id}`}>{p.name}</a></li>
+              ))}
+            </ul>
+          </li>
+
+          <!-- Castrol Menu -->
+          <li class="nav-item has-dropdown">
+            <a href="/castrol" class="nav-a">
+              Castrol <i class="fas fa-chevron-down nav-caret"></i>
+            </a>
+            <ul class="sub-nav-menu">
+              <li class="sub-nav-highlight"><a href="/castrol"><strong>Tüm Castrol Ürünleri ({castrolProducts.length}) →</strong></a></li>
+              {castrolProducts.slice(0, 5).map(p => (
+                <li><a href={`/urun/${p.id}`}>{p.name}</a></li>
+              ))}
+            </ul>
+          </li>
+
+          <!-- Mobil Menu -->
+          <li class="nav-item has-dropdown">
+            <a href="/mobil" class="nav-a">
+              Mobil <i class="fas fa-chevron-down nav-caret"></i>
+            </a>
+            <ul class="sub-nav-menu">
+              <li class="sub-nav-highlight"><a href="/mobil"><strong>Tüm Mobil Ürünleri ({mobilProducts.length}) →</strong></a></li>
+              {mobilProducts.slice(0, 5).map(p => (
+                <li><a href={`/urun/${p.id}`}>{p.name}</a></li>
+              ))}
+            </ul>
+          </li>
+
+          <!-- Petrol Ofisi Menu -->
+          <li class="nav-item has-dropdown">
+            <a href="/petrol-ofisi" class="nav-a">
+              Petrol Ofisi <i class="fas fa-chevron-down nav-caret"></i>
+            </a>
+            <ul class="sub-nav-menu">
+              <li class="sub-nav-highlight"><a href="/petrol-ofisi"><strong>Tüm Petrol Ofisi Ürünleri ({poProducts.length}) →</strong></a></li>
+              {poProducts.slice(0, 5).map(p => (
+                <li><a href={`/urun/${p.id}`}>{p.name}</a></li>
+              ))}
+            </ul>
+          </li>
+
+          <!-- Shell Menu -->
+          <li class="nav-item has-dropdown">
+            <a href="/shell" class="nav-a">
+              Shell <i class="fas fa-chevron-down nav-caret"></i>
+            </a>
+            <ul class="sub-nav-menu">
+              <li class="sub-nav-highlight"><a href="/shell"><strong>Tüm Shell Ürünleri ({shellProducts.length}) →</strong></a></li>
+              {shellProducts.slice(0, 5).map(p => (
+                <li><a href={`/urun/${p.id}`}>{p.name}</a></li>
+              ))}
+            </ul>
+          </li>
+
+          <li class="nav-item"><a href="/magaza" class="nav-a">Mağaza</a></li>
+        </ul>
+
+        <div class="nav-links-right">
+          <a href="/blog" class="nav-a">Blog</a>
+          <a href="/iletisim" class="nav-a">İletişim</a>
+          <a href="/teklif-al" class="nav-a nav-a-highlight">
+            <i class="fas fa-file-invoice"></i>
+            <span>Teklif Al</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Sticky Header (Visible on <= 992px) -->
+    <header class="mobile-header-bar" id="mobileHeader">
+      <div class="mobile-header-inner">
+        <a href="/" class="mobile-logo-link" aria-label="dişli yağı Ana Sayfa">
+          <img
+            src="/images/logo.png"
+            alt="dişli yağı Logo"
+          />
+        </a>
+
+        <div class="mobile-header-actions">
+          <a href="/teklif-al" class="mobile-quote-pill">
+            <i class="fas fa-file-invoice"></i>
+            <span>Teklif Al</span>
+          </a>
+          <button class="mobile-hamburger-btn" id="mobileMenuToggle" type="button" aria-label="Menüyü Aç" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Drawer Backdrop -->
+    <div class="mobile-drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Mobile Off-Canvas Drawer -->
+    <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobil Menü" aria-hidden="true">
+      <div class="drawer-top-bar">
+        <a href="/" class="drawer-brand-logo">
+          <img
+            src="/images/logo.png"
+            alt="dişli yağı Logo"
+            height="32"
+          />
+        </a>
+        <button class="drawer-close-btn" id="drawerCloseBtn" type="button" aria-label="Menüyü Kapat">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Quick Contact Actions in Drawer -->
+      <div class="drawer-quick-actions">
+        <a href="tel:+905069401210" class="drawer-quick-btn call-btn" aria-label="Müşteri Hattını Ara">
+          <span class="btn-icon-wrap"><i class="fas fa-phone-alt"></i></span>
+          <div class="btn-text-wrap">
+            <span class="btn-sub">Hemen Arayın</span>
+            <span class="btn-main">0506 940 12 10</span>
+          </div>
+        </a>
+        <a href={`https://wa.me/905069401210?text=${encodeURIComponent('[disliyagi.com] MUSTERI DESTEK HATTI\n\nMerhaba, hidrolik yaglari hakkinda detayli bilgi ve fiyat teklifi almak istiyorum.')}`} target="_blank" rel="noopener noreferrer" class="drawer-quick-btn wa-btn" aria-label="WhatsApp ile Sipariş Ver">
+          <span class="btn-icon-wrap"><i class="fab fa-whatsapp"></i></span>
+          <div class="btn-text-wrap">
+            <span class="btn-sub">WhatsApp Hattı</span>
+            <span class="btn-main">Hızlı Sipariş</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Drawer Navigation List -->
+      <nav class="drawer-nav-container">
+        <ul class="drawer-nav-menu">
+          <li>
+            <a href="/" class="drawer-link"><i class="fas fa-home"></i> <span>Ana Sayfa</span></a>
+          </li>
+          <li>
+            <a href="/magaza" class="drawer-link"><i class="fas fa-th-large"></i> <span>Tüm Ürünler / Mağaza</span></a>
+          </li>
+
+          <!-- Brands Section with Accordion -->
+          <li class="drawer-section-label">Markalarımız & Ürünler</li>
+
+          <!-- Artoil Accordion -->
+          <li class="drawer-accordion-item">
+            <button class="drawer-accordion-btn" type="button">
+              <span class="acc-brand-title">Artoil</span>
+              <div class="acc-right">
+                <span class="acc-count-pill">{artoilProducts.length}</span>
+                <i class="fas fa-chevron-down acc-arrow"></i>
+              </div>
+            </button>
+            <div class="drawer-accordion-panel">
+              <a href="/artoil" class="drawer-sublink highlight">Tüm Artoil Ürünleri ({artoilProducts.length}) →</a>
+              {artoilProducts.slice(0, 5).map(p => (
+                <a href={`/urun/${p.id}`} class="drawer-sublink">{p.name}</a>
+              ))}
+            </div>
+          </li>
+
+          <!-- Castrol Accordion -->
+          <li class="drawer-accordion-item">
+            <button class="drawer-accordion-btn" type="button">
+              <span class="acc-brand-title">Castrol</span>
+              <div class="acc-right">
+                <span class="acc-count-pill">{castrolProducts.length}</span>
+                <i class="fas fa-chevron-down acc-arrow"></i>
+              </div>
+            </button>
+            <div class="drawer-accordion-panel">
+              <a href="/castrol" class="drawer-sublink highlight">Tüm Castrol Ürünleri ({castrolProducts.length}) →</a>
+              {castrolProducts.slice(0, 5).map(p => (
+                <a href={`/urun/${p.id}`} class="drawer-sublink">{p.name}</a>
+              ))}
+            </div>
+          </li>
+
+          <!-- Mobil Accordion -->
+          <li class="drawer-accordion-item">
+            <button class="drawer-accordion-btn" type="button">
+              <span class="acc-brand-title">Mobil</span>
+              <div class="acc-right">
+                <span class="acc-count-pill">{mobilProducts.length}</span>
+                <i class="fas fa-chevron-down acc-arrow"></i>
+              </div>
+            </button>
+            <div class="drawer-accordion-panel">
+              <a href="/mobil" class="drawer-sublink highlight">Tüm Mobil Ürünleri ({mobilProducts.length}) →</a>
+              {mobilProducts.slice(0, 5).map(p => (
+                <a href={`/urun/${p.id}`} class="drawer-sublink">{p.name}</a>
+              ))}
+            </div>
+          </li>
+
+          <!-- Petrol Ofisi Accordion -->
+          <li class="drawer-accordion-item">
+            <button class="drawer-accordion-btn" type="button">
+              <span class="acc-brand-title">Petrol Ofisi</span>
+              <div class="acc-right">
+                <span class="acc-count-pill">{poProducts.length}</span>
+                <i class="fas fa-chevron-down acc-arrow"></i>
+              </div>
+            </button>
+            <div class="drawer-accordion-panel">
+              <a href="/petrol-ofisi" class="drawer-sublink highlight">Tüm Petrol Ofisi Ürünleri ({poProducts.length}) →</a>
+              {poProducts.slice(0, 5).map(p => (
+                <a href={`/urun/${p.id}`} class="drawer-sublink">{p.name}</a>
+              ))}
+            </div>
+          </li>
+
+          <!-- Shell Accordion -->
+          <li class="drawer-accordion-item">
+            <button class="drawer-accordion-btn" type="button">
+              <span class="acc-brand-title">Shell</span>
+              <div class="acc-right">
+                <span class="acc-count-pill">{shellProducts.length}</span>
+                <i class="fas fa-chevron-down acc-arrow"></i>
+              </div>
+            </button>
+            <div class="drawer-accordion-panel">
+              <a href="/shell" class="drawer-sublink highlight">Tüm Shell Ürünleri ({shellProducts.length}) →</a>
+              {shellProducts.slice(0, 5).map(p => (
+                <a href={`/urun/${p.id}`} class="drawer-sublink">{p.name}</a>
+              ))}
+            </div>
+          </li>
+
+          <li class="drawer-section-label">Diğer Bağlantılar</li>
+          <li>
+            <a href="/blog" class="drawer-link"><i class="fas fa-book-open"></i> <span>Blog & Teknik Makaleler</span></a>
+          </li>
+          <li>
+            <a href="/iletisim" class="drawer-link"><i class="fas fa-map-marker-alt"></i> <span>İletişim & Sevkiyat Deposu</span></a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Drawer Footer CTA -->
+      <div class="drawer-footer-cta">
+        <a href="/teklif-al" class="drawer-quote-button">
+          <i class="fas fa-file-invoice"></i>
+          <span>Toptan Fiyat Teklifi Al</span>
+        </a>
+        <div class="drawer-guarantee-note">
+          <i class="fas fa-check-circle"></i> Orijinal Ürün • Aynı Gün Hızlı Sevkiyat
+        </div>
+      </div>
+    </aside>
+
+    <!-- Slot for Page Content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Authentic Enterprise Footer -->
+    <footer class="client-footer">
+      <div class="container footer-grid">
+        <!-- Col 1: Logo & About -->
+        <div class="footer-col col-brand">
+          <a href="/" class="footer-logo-link">
+            <img
+              src="/images/logo-footer.png"
+              alt="dişli yağı Logo"
+              class="footer-logo-img"
+            />
+          </a>
+          <p class="footer-desc">
+            <strong>disliyagi.com</strong>, Türkiye genelinde endüstriyel hidrolik ve madeni yağ tedarikinde yetkin çözüm ortağınızdır. Orijinal ambalajlı ürünler, yetkili distribütör garantisi ve aynı gün sevkiyat avantajı.
+          </p>
+          <div class="footer-badges">
+            <span class="f-badge"><span class="badge-dot"></span> Orijinal Ürün Garantisi</span>
+            <span class="f-badge"><span class="badge-dot"></span> Aynı Gün Hızlı Sevkiyat</span>
+          </div>
+        </div>
+
+        <!-- Col 2: Kurumsal -->
+        <div class="footer-col">
+          <h3 class="footer-title">Kurumsal</h3>
+          <ul class="footer-links">
+            <li><a href="/">Ana Sayfa</a></li>
+            <li><a href="/magaza">Tüm Ürünler (Mağaza)</a></li>
+            <li><a href="/blog">Blog & Rehberler</a></li>
+            <li><a href="/teklif-al">Toptan Teklif Al</a></li>
+            <li><a href="/iletisim">İletişim & Sevkiyat Deposu</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Ürün Kategorileri -->
+        <div class="footer-col">
+          <h3 class="footer-title">Ürün Kategorileri</h3>
+          <ul class="footer-links">
+            <li><a href="/artoil">Artoil dişli yağıları</a></li>
+            <li><a href="/castrol">Castrol Hyspin AWS Serisi</a></li>
+            <li><a href="/mobil">Mobil DTE & Nuto H Serisi</a></li>
+            <li><a href="/petrol-ofisi">Petrol Ofisi Hydro Oil HD</a></li>
+            <li><a href="/shell">Shell Tellus S2 & S3 Serisi</a></li>
+            <li><a href="https://www.yagmarket.com/sanziman-disli-yaglari" target="_blank" rel="noopener noreferrer" class="footer-external-link">dişli yağı — Yağmarket.com ↗</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Sipariş & İletişim -->
+        <div class="footer-col">
+          <h3 class="footer-title">Sipariş & İletişim</h3>
+          <div class="footer-contact-list">
+            <a href="tel:+905069401210" class="f-contact-card">
+              <span class="f-contact-label">SATIŞ & TEKNİK DESTEK</span>
+              <span class="f-contact-value">+90 506 940 1210</span>
+              <span class="f-contact-sub">Hafta içi 09:30 - 17:30</span>
+            </a>
+            <a href={`https://wa.me/905069401210?text=${encodeURIComponent('[disliyagi.com] WHATSAPP DESTEK VE TEKLIF HATTI\n\nMerhaba, hidrolik yaglari hakkinda detayli bilgi ve fiyat teklifi almak istiyorum.')}`} target="_blank" rel="noopener noreferrer" class="f-contact-card f-contact-wa">
+              <span class="f-contact-label"><i class="fab fa-whatsapp"></i> 7/24 WHATSAPP DESTEK</span>
+              <span class="f-contact-value">+90 506 940 1210</span>
+              <span class="f-contact-sub">Anında teklif ve teknik föy</span>
+            </a>
+            <div class="f-contact-card f-contact-addr">
+              <span class="f-contact-label">MERKEZ OFİS</span>
+              <span class="f-contact-addr-text">Arap Camii Mh. Bakır Sk. No:6/A Beyoğlu/İSTANBUL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Policy & Copyright Sub-footer Bar -->
+      <div class="footer-bottom-bar">
+        <div class="container footer-bottom-inner">
+          <p class="footer-copy">© {new Date().getFullYear()} {siteConfig.siteName} (disliyagi.com) — Tüm hakları saklıdır.</p>
+          <nav class="footer-policy-nav" aria-label="Yasal Politikalar">
+            <a href="/gizlilik-politikasi">Gizlilik Politikası</a>
+            <span class="policy-sep">/</span>
+            <a href="/kullanim-kosullari">Kullanım Koşulları</a>
+            <span class="policy-sep">/</span>
+            <a href="/kvkk-aydinlatma-metni">KVKK Aydınlatma Metni</a>
+            <span class="policy-sep">/</span>
+            <a href="/cerez-politikasi">Çerez Politikası</a>
+            <span class="policy-sep">/</span>
+            <a href="https://essabilisim.com/" target="_blank" rel="noopener noreferrer">Made by Essa Yazılım</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Client Floating WhatsApp Icon with Tooltip -->
+    <div class="floating-chaty-container">
+      <span class="chaty-tooltip">Hızlı Fiyat & Stok Hattı</span>
+      <a
+        href={`https://wa.me/905069401210?text=${encodeURIComponent('[disliyagi.com] HIZLI FIYAT VE STOK HATTI\n\nMerhaba, hidrolik yaglari hakkinda guncel fiyat ve stok durumu ogrenmek istiyorum.')}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="floating-chaty-btn"
+        aria-label="WhatsApp İle İletişime Geçin"
+      >
+        <i class="fab fa-whatsapp" style="font-size: 32px;"></i>
+      </a>
+    </div>
+
+    <!-- Mobile Menu Interactivity Script -->
+    <script is:inline>
+      function setupMobileMenu() {
+        const toggleBtn = document.getElementById('mobileMenuToggle');
+        const closeBtn = document.getElementById('drawerCloseBtn');
+        const backdrop = document.getElementById('drawerBackdrop');
+        const drawer = document.getElementById('mobileDrawer');
+
+        if (!toggleBtn || !drawer || !backdrop) return;
+
+        function openDrawer() {
+          drawer.classList.add('is-open');
+          backdrop.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+          toggleBtn.setAttribute('aria-expanded', 'true');
+          drawer.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeDrawer() {
+          drawer.classList.remove('is-open');
+          backdrop.classList.remove('is-open');
+          document.body.style.overflow = '';
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          drawer.setAttribute('aria-hidden', 'true');
+        }
+
+        toggleBtn.onclick = (e) => {
+          e.preventDefault();
+          openDrawer();
+        };
+
+        if (closeBtn) {
+          closeBtn.onclick = (e) => {
+            e.preventDefault();
+            closeDrawer();
+          };
+        }
+
+        backdrop.onclick = closeDrawer;
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+            closeDrawer();
+          }
+        });
+
+        // Accordion functionality for brands
+        const accordionBtns = drawer.querySelectorAll('.drawer-accordion-btn');
+        accordionBtns.forEach((btn) => {
+          btn.onclick = (e) => {
+            e.preventDefault();
+            const item = btn.closest('.drawer-accordion-item');
+            if (item) {
+              const wasActive = item.classList.contains('is-expanded');
+              // Close all other accordions for neat view
+              accordionBtns.forEach(b => {
+                const parent = b.closest('.drawer-accordion-item');
+                if (parent && parent !== item) parent.classList.remove('is-expanded');
+              });
+              if (!wasActive) {
+                item.classList.add('is-expanded');
+              } else {
+                item.classList.remove('is-expanded');
+              }
+            }
+          };
+        });
+
+        // Close drawer when normal navigation links are clicked
+        const navLinks = drawer.querySelectorAll('a');
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            closeDrawer();
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupMobileMenu);
+      } else {
+        setupMobileMenu();
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  /* Top Contact Bar - Clean Minimal White */
+  .top-contact-bar {
+    background-color: #ffffff;
+    padding: 8px 0;
+    font-size: 13px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .top-bar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .top-announcement {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .badge-mini {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fde68a;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.03em;
+  }
+  .announcement-text {
+    color: #475569;
+    font-weight: 500;
+  }
+  .top-contact-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .top-link {
+    color: #334155;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .top-link:hover {
+    color: #d97706;
+  }
+  .top-wa {
+    color: #16a34a;
+  }
+  .top-wa:hover {
+    color: #15803d;
+  }
+  .top-wa i {
+    color: #25d366;
+    font-size: 15px;
+  }
+  .top-sep {
+    color: #e2e8f0;
+  }
+
+  /* Logo Row - Exactly 96px Height, Centered, Clean Minimal White */
+  .logo-row {
+    background: #ffffff;
+    height: 96px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .logo-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  .site-main-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+  .site-main-logo:hover {
+    transform: scale(1.015);
+  }
+  .site-main-logo img {
+    height: 52px;
+    width: auto;
+    max-height: 56px;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Main Navbar - Premium Warm Amber Yellow Brand Style matching hidrolikyagi.net */
+  .main-navbar {
+    background: #f59e0b;
+    height: 58px;
+    border-bottom: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.18);
+    display: flex;
+    align-items: center;
+  }
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  .nav-links-list, .nav-links-right {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-item {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .nav-a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+    height: 58px;
+    color: #0f172a;
+    font-size: 15.5px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .nav-a:hover, .nav-a.active {
+    background: rgba(0, 0, 0, 0.08);
+    color: #000000;
+  }
+  .nav-a-highlight {
+    background: #0f172a !important;
+    color: #ffffff !important;
+    border-radius: 6px;
+    height: 38px !important;
+    padding: 0 18px !important;
+    font-weight: 700;
+    font-size: 14.5px;
+    box-shadow: none !important;
+    margin-left: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .nav-a-highlight:hover {
+    background: #1e293b !important;
+    color: #fbbf24 !important;
+    transform: translateY(-1px);
+    box-shadow: none !important;
+  }
+  .nav-caret {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+  }
+  .has-dropdown:hover .nav-caret {
+    transform: rotate(180deg);
+  }
+
+  /* Sub-nav Dropdown Menus */
+  .has-dropdown:hover .sub-nav-menu {
+    display: block;
+    animation: dropFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .sub-nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 290px;
+    background: #ffffff;
+    box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.16), 0 0 1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 8px;
+    z-index: 999;
+    list-style: none;
+    margin: 0;
+  }
+  .sub-nav-highlight {
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+  }
+  .sub-nav-highlight a {
+    color: #d97706 !important;
+    font-weight: 700 !important;
+    background: #fffbeb !important;
+    border-radius: 6px;
+  }
+  .sub-nav-highlight a:hover {
+    background: #fef3c7 !important;
+  }
+  .sub-nav-menu li a {
+    display: block;
+    padding: 9px 12px;
+    color: #334155;
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+  .sub-nav-menu li a:hover {
+    background: #fffbeb;
+    color: #92400e;
+    padding-left: 15px;
+  }
+
+  /* Footer */
+  /* Enterprise Modern Footer */
+  .client-footer {
+    background: #090e17;
+    color: #ffffff;
+    padding-top: 64px;
+    margin-top: 60px;
+    border-top: 1px solid #1e293b;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.1fr 1.3fr;
+    gap: 44px;
+    padding-bottom: 50px;
+  }
+  .footer-logo-link {
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+  .footer-logo-img {
+    max-width: 210px;
+    height: auto;
+    display: block;
+  }
+  .footer-desc {
+    color: #94a3b8;
+    font-size: 13.5px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+  }
+  .footer-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .f-badge {
+    font-size: 12.5px;
+    color: #cbd5e1;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f59e0b;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .footer-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-title::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 18px;
+    background: #f59e0b;
+  }
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-links a {
+    color: #94a3b8;
+    font-size: 13.5px;
+    text-decoration: none;
+    transition: color 0.15s ease, transform 0.15s ease;
+    display: inline-block;
+  }
+  .footer-links a:hover {
+    color: #f59e0b;
+    transform: translateX(4px);
+  }
+
+  .footer-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .f-contact-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .f-contact-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(245, 158, 11, 0.4);
+  }
+  .f-contact-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #64748b;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .f-contact-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+  }
+  .f-contact-sub {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+  .f-contact-wa .f-contact-label {
+    color: #10b981;
+  }
+  .f-contact-wa:hover {
+    border-color: rgba(16, 185, 129, 0.4);
+  }
+  .f-contact-addr {
+    cursor: default;
+  }
+  .f-contact-addr-text {
+    font-size: 12.5px;
+    color: #cbd5e1;
+    line-height: 1.5;
+  }
+
+  .footer-bottom-bar {
+    background: #05080e;
+    padding: 20px 0;
+    font-size: 13px;
+    color: #64748b;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .footer-bottom-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .footer-copy {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+  }
+  .footer-policy-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .footer-policy-nav a {
+    color: #94a3b8;
+    font-size: 12.5px;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .footer-policy-nav a:hover {
+    color: #f59e0b;
+  }
+  .policy-sep {
+    color: #334155;
+    font-size: 12px;
+  }
+
+  /* --- MOBILE HEADER & DRAWER STYLES --- */
+  .mobile-header-bar,
+  .mobile-drawer,
+  .mobile-drawer-backdrop {
+    display: none;
+  }
+
+  @media (max-width: 992px) {
+    /* Hide desktop-only header on tablet & mobile */
+    .desktop-header-only {
+      display: none !important;
+    }
+
+    /* Top Bar Mobile Optimization (Compact & Clean) */
+    .top-announcement {
+      display: none !important;
+    }
+    .top-contact-bar {
+      padding: 8px 0;
+    }
+    .top-bar-inner {
+      justify-content: center !important;
+      padding: 0 12px !important;
+    }
+    .top-contact-actions {
+      justify-content: center;
+      width: 100%;
+      gap: 14px;
+    }
+    .top-link {
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .top-wa span {
+      display: inline;
+    }
+    .top-wa i {
+      font-size: 15px;
+    }
+
+    /* Mobile Sticky Header Bar - 80px Prominent */
+    .mobile-header-bar {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      height: 80px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      padding: 0 16px;
+    }
+    .mobile-header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 100% !important;
+      padding: 0 !important;
+    }
+    .mobile-logo-link {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .mobile-logo-link img {
+      height: 48px;
+      max-height: 54px;
+      max-width: 230px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .mobile-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .mobile-quote-pill {
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 0 16px;
+      height: 42px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      transition: background 0.15s ease;
+    }
+    .mobile-quote-pill:hover {
+      background: #1e293b;
+      color: #fbbf24;
+    }
+    .mobile-quote-pill i {
+      font-size: 13px;
+      color: #f59e0b;
+    }
+    .mobile-hamburger-btn {
+      width: 44px;
+      height: 42px;
+      border-radius: 8px;
+      background: #f59e0b;
+      color: #0f172a;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .mobile-hamburger-btn i {
+      pointer-events: none;
+    }
+    .mobile-hamburger-btn:active {
+      transform: scale(0.96);
+      background: #d97706;
+    }
+
+    /* Drawer Backdrop */
+    .mobile-drawer-backdrop {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 99998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .mobile-drawer-backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Off-Canvas Drawer Side Panel */
+    .mobile-drawer {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 88%;
+      max-width: 350px;
+      height: 100%;
+      height: 100dvh;
+      background: #ffffff;
+      z-index: 99999;
+      box-shadow: -8px 0 32px rgba(15, 23, 42, 0.2);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+    .mobile-drawer.is-open {
+      transform: translateX(0);
+    }
+
+    /* Drawer Top Bar */
+    .drawer-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      border-bottom: 1px solid #f1f5f9;
+      background: #ffffff;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .drawer-brand-logo img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+    .drawer-close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .drawer-close-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+
+    /* Drawer Quick Contact Cards */
+    .drawer-quick-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #ffffff;
+      border-bottom: 1px solid #f1f5f9;
+      flex-shrink: 0;
+    }
+    .drawer-quick-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      min-width: 0;
+      transition: all 0.2s ease;
+    }
+    .drawer-quick-btn:active {
+      transform: scale(0.97);
+    }
+    .call-btn {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      color: #0369a1;
+    }
+    .call-btn:hover {
+      background: #e0f2fe;
+      border-color: #7dd3fc;
+    }
+    .call-btn .btn-icon-wrap {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .wa-btn {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #15803d;
+    }
+    .wa-btn:hover {
+      background: #dcfce7;
+      border-color: #86efac;
+    }
+    .wa-btn .btn-icon-wrap {
+      background: #16a34a;
+      color: #ffffff;
+    }
+    .btn-icon-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13.5px;
+      flex-shrink: 0;
+    }
+    .btn-text-wrap {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .btn-sub {
+      font-size: 9.5px;
+      font-weight: 700;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .btn-main {
+      font-size: 11.5px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Drawer Navigation Links */
+    .drawer-nav-container {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      padding: 12px 16px 16px;
+    }
+    .drawer-nav-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .drawer-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #1e293b;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .drawer-link i {
+      font-size: 14px;
+      color: #64748b;
+      width: 18px;
+      text-align: center;
+    }
+    .drawer-link:hover {
+      background: #f8fafc;
+      color: #d97706;
+    }
+    .drawer-link:hover i {
+      color: #d97706;
+    }
+
+    .drawer-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 14px 12px 6px;
+    }
+
+    /* Brand Accordion */
+    .drawer-accordion-item {
+      border-radius: 8px;
+      margin-bottom: 2px;
+      transition: background 0.15s ease;
+    }
+    .drawer-accordion-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .drawer-accordion-btn:hover {
+      background: #f8fafc;
+    }
+    .acc-brand-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      letter-spacing: -0.01em;
+    }
+    .acc-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .acc-count-pill {
+      font-size: 11px;
+      font-weight: 700;
+      background: #f1f5f9;
+      color: #64748b;
+      padding: 1.5px 7px;
+      border-radius: 999px;
+    }
+    .acc-arrow {
+      font-size: 11px;
+      color: #94a3b8;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .drawer-accordion-item.is-expanded .drawer-accordion-btn {
+      background: #f8fafc;
+    }
+    .drawer-accordion-item.is-expanded .acc-brand-title {
+      color: #d97706;
+      font-weight: 700;
+    }
+    .drawer-accordion-item.is-expanded .acc-count-pill {
+      background: #fef3c7;
+      color: #b45309;
+    }
+    .drawer-accordion-item.is-expanded .acc-arrow {
+      transform: rotate(180deg);
+      color: #d97706;
+    }
+
+    .drawer-accordion-panel {
+      display: none;
+      background: #ffffff;
+      padding: 4px 12px 10px 20px;
+      border-left: 2px solid #e2e8f0;
+      margin: 2px 0 6px 14px;
+    }
+    .drawer-accordion-item.is-expanded .drawer-accordion-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .drawer-sublink {
+      font-size: 13px;
+      color: #475569;
+      text-decoration: none;
+      padding: 5px 0;
+      transition: color 0.15s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .drawer-sublink:hover {
+      color: #d97706;
+    }
+    .drawer-sublink.highlight {
+      color: #d97706;
+      font-weight: 700;
+      border-bottom: 1px dashed #e2e8f0;
+      padding-bottom: 6px;
+      margin-bottom: 2px;
+    }
+
+    /* Drawer Footer CTA */
+    .drawer-footer-cta {
+      flex-shrink: 0;
+      padding: 14px 18px max(18px, env(safe-area-inset-bottom));
+      background: #ffffff;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.04);
+    }
+    .drawer-quote-button {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 12px 16px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.28);
+      transition: all 0.2s ease;
+    }
+    .drawer-quote-button:hover {
+      box-shadow: 0 6px 18px rgba(217, 119, 6, 0.4);
+      transform: translateY(-1px);
+    }
+    .drawer-guarantee-note {
+      font-size: 11px;
+      color: #64748b;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+    .drawer-guarantee-note i {
+      color: #16a34a;
+      font-size: 12px;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .top-announcement .announcement-text {
+      display: none;
+    }
+    .top-bar-inner {
+      justify-content: space-between;
+    }
+    .mobile-header-bar {
+      height: 80px;
+      padding: 0 12px;
+    }
+    .mobile-logo-link img {
+      height: 44px;
+      max-width: 200px;
+    }
+    .mobile-quote-pill {
+      font-size: 12.5px;
+      padding: 0 12px;
+      height: 40px;
+    }
+    .mobile-hamburger-btn {
+      width: 42px;
+      height: 40px;
+      font-size: 17px;
+    }
+  }
+</style>

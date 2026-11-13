@@ -1,0 +1,180 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import siteConfig from '../data/siteConfig.json';
+---
+
+<Layout
+  title={`Çerez Politikası | ${siteConfig.siteName}`}
+  description={`${siteConfig.siteName} çerez (cookie) kullanım politikası. Web sitemizde kullanılan çerez türleri, kullanım amaçları ve çerez yönetimi.`}
+>
+  <Breadcrumb items={[{ label: "Çerez Politikası" }]} />
+
+  <section class="policy-section">
+    <div class="container policy-container">
+      <div class="policy-header">
+        <span class="badge badge-amber">Çerez Bilgilendirmesi</span>
+        <h1>Çerez (Cookie) Politikası</h1>
+        <p class="policy-lead">Web sitemizde kullanıcı deneyimini iyileştirmek için çerezler kullanılmaktadır.</p>
+      </div>
+
+      <div class="policy-content">
+        <article class="policy-card">
+          <h2>1. Çerez Nedir?</h2>
+          <p>
+            Çerezler (Cookies), bir web sitesini ziyaret ettiğinizde bilgisayarınız veya mobil cihazınıza kaydedilen küçük metin dosyalarıdır. Çerezler, web sitesinin daha verimli çalışmasını sağlamak, tercihlerinizi hatırlamak ve site performansını analiz etmek amacıyla kullanılır.
+          </p>
+        </article>
+
+        <article class="policy-card">
+          <h2>2. Sitemizde Kullanılan Çerez Türleri</h2>
+          <p>{siteConfig.siteName} ({siteConfig.domain}) üzerinde aşağıdaki çerez kategorileri kullanılmaktadır:</p>
+          <ul>
+            <li><strong>Zorunlu Çerezler:</strong> Web sitesinin temel fonksiyonlarının düzgün çalışması, sayfa geçişleri ve güvenlik doğrulamaları için kesinlikle gereklidir.</li>
+            <li><strong>Performans ve Analitik Çerezler:</strong> Ziyaretçilerin siteyi nasıl kullandığını (en çok ziyaret edilen sayfalar, gezinme süresi vb.) anonim olarak ölçümleyerek site yapısını iyileştirmemize yardımcı olur.</li>
+            <li><strong>İşlevsel Çerezler:</strong> Kullanıcı tercihlerini (örneğin dil veya bölge seçimi) hatırlayarak daha kişiselleştirilmiş bir deneyim sunar.</li>
+          </ul>
+        </article>
+
+        <article class="policy-card">
+          <h2>3. Çerezlerin Kullanım Amaçları</h2>
+          <p>Sitemizde yer alan çerezler şu amaçlarla kullanılmaktadır:</p>
+          <ul>
+            <li>Web sitesinin temel işlevselliğini ve sayfa yüklenme performansını sağlamak,</li>
+            <li>Kullanıcı deneyimini optimize etmek ve teknik hataları tespit etmek,</li>
+            <li>Ziyaretçi trafiğini ve sayfa görüntüleme istatistiklerini anonim olarak analiz etmek.</li>
+          </ul>
+        </article>
+
+        <article class="policy-card">
+          <h2>4. Çerezleri Nasıl Kontrol Edebilirsiniz?</h2>
+          <p>
+            Tarayıcınızın ayarlarını değiştirerek çerez tercihlerinizi dilediğiniz zaman yönetebilir, mevcut çerezleri silebilir veya yeni çerez kabulünü engelleyebilirsiniz. Çerezlerin devre dışı bırakılması durumunda sitemizin bazı fonksiyonları beklenen verimlilikte çalışmayabilir.
+          </p>
+          <p>
+            Tarayıcınızın çerez ayarlarını düzenlemek için aşağıdaki resmi destek sayfalarını inceleyebilirsiniz:
+          </p>
+          <ul>
+            <li><strong>Google Chrome:</strong> Ayarlar &gt; Gizlilik ve Güvenlik &gt; Çerezler</li>
+            <li><strong>Mozilla Firefox:</strong> Seçenekler &gt; Gizlilik ve Güvenlik &gt; Çerezler</li>
+            <li><strong>Microsoft Edge:</strong> Ayarlar &gt; Site İzinleri &gt; Çerezler ve Site Verileri</li>
+            <li><strong>Apple Safari:</strong> Tercihler &gt; Gizlilik &gt; Çerezleri Engelle</li>
+          </ul>
+        </article>
+
+        <article class="policy-card">
+          <h2>5. İletişim</h2>
+          <p>
+            Çerez politikamız hakkında detaylı bilgi almak veya taleplerinizi iletmek için bizimle iletişime geçebilirsiniz:
+          </p>
+          <div class="policy-contact-info">
+            <p><strong>Telefon:</strong> <a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a></p>
+            <p><strong>WhatsApp:</strong> <a href={`https://wa.me/${siteConfig.whatsapp}`} target="_blank" rel="noopener noreferrer">0506 940 12 10</a></p>
+            <p><strong>Adres:</strong> {siteConfig.address}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+
+
+  .policy-section {
+    padding: 60px 0 90px;
+    background: #ffffff;
+  }
+  .policy-container {
+    max-width: 900px;
+  }
+  .policy-header {
+    margin-bottom: 40px;
+  }
+  .badge-amber {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .policy-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 12px 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .policy-lead {
+    color: #64748b;
+    font-size: 14px;
+  }
+  .policy-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .policy-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 30px 34px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  .policy-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .policy-card p {
+    color: #334155;
+    font-size: 14.5px;
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  .policy-card p:last-child {
+    margin-bottom: 0;
+  }
+  .policy-card ul {
+    margin: 12px 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .policy-card ul li {
+    color: #334155;
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .policy-contact-info {
+    margin-top: 14px;
+    background: #ffffff;
+    padding: 16px 20px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .policy-contact-info p {
+    margin: 0;
+    font-size: 14px;
+  }
+  .policy-contact-info a {
+    color: #0f172a;
+    font-weight: 600;
+  }
+  .policy-contact-info a:hover {
+    color: #f59e0b;
+  }
+</style>

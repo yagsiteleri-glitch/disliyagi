@@ -1,0 +1,1371 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import products from '../data/products.json';
+import siteConfig from '../data/siteConfig.json';
+
+const brands = [
+  { key: 'artoil', label: 'Artoil' },
+  { key: 'castrol', label: 'Castrol' },
+  { key: 'mobil', label: 'Mobil' },
+  { key: 'petrol-ofisi', label: 'Petrol Ofisi' },
+  { key: 'shell', label: 'Shell' }
+];
+
+// Viscosities sorted numerically
+const viscosities = Array.from(new Set(products.map(p => p.viscosity))).sort((a, b) => {
+  const numA = parseInt(a.replace(/\D/g, '')) || 0;
+  const numB = parseInt(b.replace(/\D/g, '')) || 0;
+  return numA - numB;
+});
+
+// Package types
+const packageTypes = Array.from(new Set(products.map(p => p.packageType))).filter(Boolean);
+---
+
+<Layout
+  title={`Tüm Hidrolik Yağları & Ürün Kataloğu | ${siteConfig.siteName}`}
+  description="Artoil, Castrol, Mobil, Petrol Ofisi ve Shell hidrolik yağı çeşitleri. ISO VG 32, 46, 68, 100 viskozite seçenekleri, 16L teneke ve 208L varil toptan fiyatları."
+>
+  <!-- Shop CollectionPage Schema.org JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Endüstriyel Hidrolik Yağları Kataloğu",
+    "description": "Artoil, Castrol, Mobil, Petrol Ofisi ve Shell hidrolik yağı çeşitleri.",
+    "url": `${siteConfig.domain}/magaza`,
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": products.length,
+      "itemListElement": products.slice(0, 30).map((p, idx) => ({
+        "@type": "ListItem",
+        "position": idx + 1,
+        "name": p.name,
+        "url": `${siteConfig.domain}/urun/${p.id}`,
+        "image": p.image
+      }))
+    }
+  })} />
+
+  <Breadcrumb items={[{ label: "Tüm Ürünler / Mağaza" }]} />
+
+  <section class="shop-hero">
+    <div class="container">
+      <div class="shop-hero-inner">
+        <span class="badge-amber">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Ürün Kataloğu
+        </span>
+        <h1>Endüstriyel Hidrolik Yağları</h1>
+        <p>
+          Türkiye'nin lider madeni yağ markalarının orijinal ambalajlı hidrolik yağları. Fabrika dolumları ve perakende ihtiyaçlarınız için faturalı aynı gün sevkiyat.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Drawer Backdrop (Outside the layout container) -->
+  <div class="sidebar-backdrop" id="shop-sidebar-backdrop"></div>
+
+  <section class="shop-section">
+    <div class="container">
+      <div class="shop-layout">
+        
+        <!-- Left Filter Sidebar -->
+        <aside class="shop-sidebar" id="shop-sidebar">
+          <div class="sidebar-mobile-header">
+            <div class="sidebar-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+              Filtreler
+            </div>
+            <button class="sidebar-close-btn" id="shop-sidebar-close" type="button" aria-label="Kapat">&times;</button>
+          </div>
+
+          <!-- Search Widget -->
+          <div class="filter-widget">
+            <h4 class="widget-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              Ürün Ara
+            </h4>
+            <div class="filter-search-box">
+              <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <input
+                type="text"
+                id="shop-search-input"
+                placeholder="Ürün adı veya viskozite..."
+                autocomplete="off"
+              />
+              <button type="button" class="search-clear-btn" id="shop-search-clear" style="display:none;" aria-label="Temizle">&times;</button>
+            </div>
+          </div>
+
+          <!-- Brand Filter -->
+          <div class="filter-widget">
+            <div class="widget-header">
+              <h4 class="widget-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                Markaya Göre
+              </h4>
+              <button type="button" class="widget-reset-btn" id="reset-brand" style="display:none;">Temizle</button>
+            </div>
+            <ul class="filter-list" id="brand-filter-list">
+              <li class="filter-item">
+                <label class="filter-label">
+                  <input type="radio" name="shop-brand" value="all" checked />
+                  <span class="custom-radio"></span>
+                  <span class="filter-text">Tüm Markalar</span>
+                  <span class="filter-count">({products.length})</span>
+                </label>
+              </li>
+              {brands.map((b) => {
+                const count = products.filter(p => p.brand === b.key).length;
+                return (
+                  <li class="filter-item">
+                    <label class="filter-label">
+                      <input type="radio" name="shop-brand" value={b.key} />
+                      <span class="custom-radio"></span>
+                      <span class="filter-text">{b.label}</span>
+                      <span class="filter-count">({count})</span>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <!-- Viscosity Filter -->
+          <div class="filter-widget">
+            <div class="widget-header">
+              <h4 class="widget-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                Viskozite (ISO VG)
+              </h4>
+              <button type="button" class="widget-reset-btn" id="reset-viscosity" style="display:none;">Temizle</button>
+            </div>
+            <ul class="filter-list" id="viscosity-filter-list">
+              <li class="filter-item">
+                <label class="filter-label">
+                  <input type="radio" name="shop-viscosity" value="all" checked />
+                  <span class="custom-radio"></span>
+                  <span class="filter-text">Tümü</span>
+                  <span class="filter-count">({products.length})</span>
+                </label>
+              </li>
+              {viscosities.map((visc) => {
+                const count = products.filter(p => p.viscosity === visc).length;
+                return (
+                  <li class="filter-item">
+                    <label class="filter-label">
+                      <input type="radio" name="shop-viscosity" value={visc} />
+                      <span class="custom-radio"></span>
+                      <span class="filter-text">{visc}</span>
+                      <span class="filter-count">({count})</span>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <!-- Package Filter -->
+          {packageTypes.length > 1 && (
+            <div class="filter-widget">
+              <div class="widget-header">
+                <h4 class="widget-title">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  Ambalaj Tipi
+                </h4>
+                <button type="button" class="widget-reset-btn" id="reset-package" style="display:none;">Temizle</button>
+              </div>
+              <ul class="filter-list" id="package-filter-list">
+                <li class="filter-item">
+                  <label class="filter-label">
+                    <input type="radio" name="shop-package" value="all" checked />
+                    <span class="custom-radio"></span>
+                    <span class="filter-text">Tümü</span>
+                    <span class="filter-count">({products.length})</span>
+                  </label>
+                </li>
+                {packageTypes.map((pkg) => {
+                  const count = products.filter(p => p.packageType === pkg).length;
+                  return (
+                    <li class="filter-item">
+                      <label class="filter-label">
+                        <input type="radio" name="shop-package" value={pkg} />
+                        <span class="custom-radio"></span>
+                        <span class="filter-text">{pkg}</span>
+                        <span class="filter-count">({count})</span>
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+
+          <!-- Sidebar Promo Box -->
+          <div class="sidebar-promo-card">
+            <div class="promo-badge">Toptan İskonto</div>
+            <h5>Toplu Alım Desteği</h5>
+            <p>Fabrika ve atölyeler için palet ve varil bazında özel fiyat listesi talep edin.</p>
+            <a
+              href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent('[hidrolikyag.com] TOPTAN FIYAT LISTESI TALEBI\n\nMerhaba, fabrika ve atolyemiz icin hidrolik yaglarinda toptan iskonto ve fiyat listesi talep ediyorum.')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-sidebar-wa"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.52 0-3-.4-4.3-1.17l-.31-.18-3.19.84.85-3.11-.2-.32c-.85-1.36-1.3-2.94-1.3-4.57 0-4.7 3.83-8.53 8.54-8.53 2.28 0 4.42.89 6.03 2.5 1.61 1.61 2.5 3.75 2.5 6.03 0 4.71-3.83 8.53-8.52 8.53zm4.68-6.39c-.26-.13-1.52-.75-1.76-.84-.23-.09-.4-.13-.57.13-.17.26-.66.84-.81 1.01-.15.17-.3.19-.56.06-.26-.13-1.08-.4-2.06-1.27-.76-.68-1.28-1.52-1.43-1.78-.15-.26-.02-.4.11-.53.12-.11.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.89-.21-.5-.42-.43-.57-.44l-.49-.01c-.17 0-.45.06-.68.32-.23.26-.89.87-.89 2.12 0 1.25.91 2.46 1.04 2.63.13.17 1.8 2.75 4.36 3.86.61.26 1.09.42 1.46.54.61.2 1.17.17 1.61.1.49-.07 1.52-.62 1.74-1.22.21-.6.21-1.12.15-1.22-.06-.1-.23-.17-.49-.3z"/></svg>
+              WhatsApp'tan Danış
+            </a>
+          </div>
+
+          <!-- Mobile Apply Button -->
+          <div class="sidebar-mobile-footer">
+            <button class="btn-apply-filters" id="shop-apply-filters" type="button">
+              Sonuçları Gör (<span id="mobile-count">{products.length}</span>)
+            </button>
+          </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="shop-main">
+          <!-- Top Toolbar -->
+          <div class="shop-top-bar">
+            <div class="top-bar-left">
+              <button class="btn-mobile-filter" id="shop-mobile-trigger" type="button">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <span>Filtrele</span>
+                <span class="filter-badge" id="shop-filter-badge" style="display:none;"></span>
+              </button>
+              <div class="shop-results-info">
+                Toplam <strong id="visible-count">{products.length}</strong> ürün listeleniyor
+              </div>
+            </div>
+
+            <div class="top-bar-right">
+              <div class="sort-select-wrap">
+                <label for="shop-sort">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>
+                </label>
+                <select id="shop-sort">
+                  <option value="default">Varsayılan Sıralama</option>
+                  <option value="name-asc">Ürün Adı: A - Z</option>
+                  <option value="name-desc">Ürün Adı: Z - A</option>
+                  <option value="visc-asc">Viskozite: Düşükten Yükseğe</option>
+                  <option value="visc-desc">Viskozite: Yüksekten Düşüğe</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Filters Row -->
+          <div class="active-filters-row" id="active-filters-row" style="display: none;">
+            <span class="active-label">Seçili:</span>
+            <div class="active-tags-list" id="active-tags-list"></div>
+            <button class="btn-clear-all" id="btn-clear-all" type="button">Tümünü Temizle</button>
+          </div>
+
+          <!-- No Results State -->
+          <div class="no-results-state" id="no-results-state" style="display: none;">
+            <div class="no-results-icon">
+              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/></svg>
+            </div>
+            <h3>Filtrelere Uygun Ürün Bulunamadı</h3>
+            <p>Arama terimini değiştirebilir veya filtreleri sıfırlayarak tüm ürünleri inceleyebilirsiniz.</p>
+            <button class="btn-reset-all" id="btn-reset-all" type="button">Filtreleri Sıfırla</button>
+          </div>
+
+          <!-- Products Grid (3 cols on desktop) -->
+          <div class="shop-products-grid" id="shop-products-grid">
+            {products.map((p, index) => (
+              <div
+                class="shop-card"
+                data-index={index}
+                data-brand={p.brand}
+                data-name={p.name.toLowerCase()}
+                data-viscosity={p.viscosity}
+                data-package={p.packageType}
+                data-visc-num={parseInt(p.viscosity.replace(/\D/g, '')) || 0}
+              >
+                <a href={`/urun/${p.id}`} class="shop-card-img-wrap">
+                  <img src={p.image} alt={p.name} loading="lazy" />
+                </a>
+
+                <div class="shop-card-body">
+                  <div class="shop-card-meta">
+                    <span class="brand-badge">{p.brandName}</span>
+                    <span class="visc-pill">{p.viscosity}</span>
+                  </div>
+
+                  <h3 class="shop-card-title">
+                    <a href={`/urun/${p.id}`}>{p.name}</a>
+                  </h3>
+
+                  <div class="shop-card-actions">
+                    <a href={`/urun/${p.id}`} class="btn-detail">İncele</a>
+                    <a
+                      href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(`[hidrolikyag.com] TEKLIF TALEBI\n\nUrun: ${p.name}\n\nMerhaba, bu urun icin guncel toptan ve perakende fiyat teklifi rica ediyorum.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn-quote"
+                    >
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.52 0-3-.4-4.3-1.17l-.31-.18-3.19.84.85-3.11-.2-.32c-.85-1.36-1.3-2.94-1.3-4.57 0-4.7 3.83-8.53 8.54-8.53 2.28 0 4.42.89 6.03 2.5 1.61 1.61 2.5 3.75 2.5 6.03 0 4.71-3.83 8.53-8.52 8.53zm4.68-6.39c-.26-.13-1.52-.75-1.76-.84-.23-.09-.4-.13-.57.13-.17.26-.66.84-.81 1.01-.15.17-.3.19-.56.06-.26-.13-1.08-.4-2.06-1.27-.76-.68-1.28-1.52-1.43-1.78-.15-.26-.02-.4.11-.53.12-.11.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.89-.21-.5-.42-.43-.57-.44l-.49-.01c-.17 0-.45.06-.68.32-.23.26-.89.87-.89 2.12 0 1.25.91 2.46 1.04 2.63.13.17 1.8 2.75 4.36 3.86.61.26 1.09.42 1.46.54.61.2 1.17.17 1.61.1.49-.07 1.52-.62 1.74-1.22.21-.6.21-1.12.15-1.22-.06-.1-.23-.17-.49-.3z"/></svg>
+                      Teklif Al
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // DOM References
+  const searchInput = document.getElementById('shop-search-input') as HTMLInputElement | null;
+  const searchClearBtn = document.getElementById('shop-search-clear') as HTMLButtonElement | null;
+  const brandRadios = document.querySelectorAll<HTMLInputElement>('input[name="shop-brand"]');
+  const viscRadios = document.querySelectorAll<HTMLInputElement>('input[name="shop-viscosity"]');
+  const pkgRadios = document.querySelectorAll<HTMLInputElement>('input[name="shop-package"]');
+  const sortSelect = document.getElementById('shop-sort') as HTMLSelectElement | null;
+
+  const resetBrandBtn = document.getElementById('reset-brand') as HTMLButtonElement | null;
+  const resetViscBtn = document.getElementById('reset-viscosity') as HTMLButtonElement | null;
+  const resetPkgBtn = document.getElementById('reset-package') as HTMLButtonElement | null;
+  const clearAllBtn = document.getElementById('btn-clear-all') as HTMLButtonElement | null;
+  const resetAllEmptyBtn = document.getElementById('btn-reset-all') as HTMLButtonElement | null;
+
+  const countDisplay = document.getElementById('visible-count');
+  const mobileCountDisplay = document.getElementById('mobile-count');
+  const filterBadge = document.getElementById('shop-filter-badge');
+  const activeFiltersRow = document.getElementById('active-filters-row');
+  const activeTagsList = document.getElementById('active-tags-list');
+  const noResultsState = document.getElementById('no-results-state');
+
+  const productsGrid = document.getElementById('shop-products-grid') as HTMLElement | null;
+  const allCards = Array.from(document.querySelectorAll<HTMLElement>('#shop-products-grid .shop-card'));
+
+  // Mobile Drawer
+  const mobileFilterBtn = document.getElementById('shop-mobile-trigger');
+  const sidebarCloseBtn = document.getElementById('shop-sidebar-close');
+  const sidebarApplyBtn = document.getElementById('shop-apply-filters');
+  const sidebarBackdrop = document.getElementById('shop-sidebar-backdrop');
+  const shopSidebar = document.getElementById('shop-sidebar');
+
+  // Filter State
+  let currentSearch = '';
+  let currentBrand = 'all';
+  let currentViscosity = 'all';
+  let currentPackage = 'all';
+  let currentSort = 'default';
+
+  function applyFilterAndSort() {
+    let visibleCount = 0;
+    let activeFilterCount = 0;
+
+    if (currentSearch) activeFilterCount++;
+    if (currentBrand !== 'all') activeFilterCount++;
+    if (currentViscosity !== 'all') activeFilterCount++;
+    if (currentPackage !== 'all') activeFilterCount++;
+
+    if (resetBrandBtn) resetBrandBtn.style.display = currentBrand !== 'all' ? 'inline-block' : 'none';
+    if (resetViscBtn) resetViscBtn.style.display = currentViscosity !== 'all' ? 'inline-block' : 'none';
+    if (resetPkgBtn) resetPkgBtn.style.display = currentPackage !== 'all' ? 'inline-block' : 'none';
+    if (searchClearBtn) searchClearBtn.style.display = currentSearch ? 'block' : 'none';
+
+    if (filterBadge) {
+      if (activeFilterCount > 0) {
+        filterBadge.textContent = activeFilterCount.toString();
+        filterBadge.style.display = 'inline-flex';
+      } else {
+        filterBadge.style.display = 'none';
+      }
+    }
+
+    if (activeFiltersRow && activeTagsList) {
+      if (activeFilterCount > 0) {
+        activeFiltersRow.style.display = 'flex';
+        activeTagsList.innerHTML = '';
+
+        if (currentSearch) {
+          const tag = document.createElement('span');
+          tag.className = 'active-filter-tag';
+          tag.innerHTML = `"${currentSearch}" <button type="button">&times;</button>`;
+          tag.querySelector('button')?.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
+            currentSearch = '';
+            applyFilterAndSort();
+          });
+          activeTagsList.appendChild(tag);
+        }
+
+        if (currentBrand !== 'all') {
+          const brandRadio = Array.from(brandRadios).find(r => r.value === currentBrand);
+          const brandText = brandRadio?.closest('.filter-label')?.querySelector('.filter-text')?.textContent || currentBrand;
+          const tag = document.createElement('span');
+          tag.className = 'active-filter-tag';
+          tag.innerHTML = `${brandText} <button type="button">&times;</button>`;
+          tag.querySelector('button')?.addEventListener('click', () => {
+            selectBrand('all');
+          });
+          activeTagsList.appendChild(tag);
+        }
+
+        if (currentViscosity !== 'all') {
+          const tag = document.createElement('span');
+          tag.className = 'active-filter-tag';
+          tag.innerHTML = `${currentViscosity} <button type="button">&times;</button>`;
+          tag.querySelector('button')?.addEventListener('click', () => {
+            selectViscosity('all');
+          });
+          activeTagsList.appendChild(tag);
+        }
+
+        if (currentPackage !== 'all') {
+          const tag = document.createElement('span');
+          tag.className = 'active-filter-tag';
+          tag.innerHTML = `${currentPackage} <button type="button">&times;</button>`;
+          tag.querySelector('button')?.addEventListener('click', () => {
+            selectPackage('all');
+          });
+          activeTagsList.appendChild(tag);
+        }
+      } else {
+        activeFiltersRow.style.display = 'none';
+      }
+    }
+
+    const visibleCards: HTMLElement[] = [];
+    allCards.forEach(card => {
+      const brand = card.getAttribute('data-brand') || '';
+      const name = card.getAttribute('data-name') || '';
+      const visc = card.getAttribute('data-viscosity') || '';
+      const pkg = card.getAttribute('data-package') || '';
+
+      const matchSearch = !currentSearch || name.includes(currentSearch) || visc.toLowerCase().includes(currentSearch) || brand.includes(currentSearch);
+      const matchBrand = (currentBrand === 'all') || (brand === currentBrand);
+      const matchVisc = (currentViscosity === 'all') || (visc === currentViscosity);
+      const matchPkg = (currentPackage === 'all') || (pkg === currentPackage);
+
+      if (matchSearch && matchBrand && matchVisc && matchPkg) {
+        card.style.display = 'flex';
+        visibleCards.push(card);
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    if (currentSort !== 'default' && productsGrid) {
+      visibleCards.sort((a, b) => {
+        const nameA = a.getAttribute('data-name') || '';
+        const nameB = b.getAttribute('data-name') || '';
+        const viscA = parseInt(a.getAttribute('data-visc-num') || '0', 10);
+        const viscB = parseInt(b.getAttribute('data-visc-num') || '0', 10);
+
+        if (currentSort === 'name-asc') return nameA.localeCompare(nameB, 'tr');
+        if (currentSort === 'name-desc') return nameB.localeCompare(nameA, 'tr');
+        if (currentSort === 'visc-asc') return viscA - viscB;
+        if (currentSort === 'visc-desc') return viscB - viscA;
+        return 0;
+      });
+
+      visibleCards.forEach(c => productsGrid.appendChild(c));
+    }
+
+    if (countDisplay) countDisplay.textContent = visibleCount.toString();
+    if (mobileCountDisplay) mobileCountDisplay.textContent = visibleCount.toString();
+    if (noResultsState) noResultsState.style.display = visibleCount === 0 ? 'flex' : 'none';
+  }
+
+  function selectBrand(val: string) {
+    currentBrand = val;
+    brandRadios.forEach(radio => {
+      radio.checked = (radio.value === val);
+    });
+    applyFilterAndSort();
+  }
+
+  function selectViscosity(val: string) {
+    currentViscosity = val;
+    viscRadios.forEach(radio => {
+      radio.checked = (radio.value === val);
+    });
+    applyFilterAndSort();
+  }
+
+  function selectPackage(val: string) {
+    currentPackage = val;
+    pkgRadios.forEach(radio => {
+      radio.checked = (radio.value === val);
+    });
+    applyFilterAndSort();
+  }
+
+  function resetAll() {
+    currentSearch = '';
+    if (searchInput) searchInput.value = '';
+    selectBrand('all');
+    selectViscosity('all');
+    selectPackage('all');
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = (e.target as HTMLInputElement).value.toLowerCase().trim();
+      applyFilterAndSort();
+    });
+  }
+
+  if (searchClearBtn) {
+    searchClearBtn.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      currentSearch = '';
+      applyFilterAndSort();
+    });
+  }
+
+  brandRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (radio.checked) {
+        currentBrand = radio.value;
+        applyFilterAndSort();
+      }
+    });
+  });
+
+  viscRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (radio.checked) {
+        currentViscosity = radio.value;
+        applyFilterAndSort();
+      }
+    });
+  });
+
+  pkgRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (radio.checked) {
+        currentPackage = radio.value;
+        applyFilterAndSort();
+      }
+    });
+  });
+
+  if (sortSelect) {
+    sortSelect.addEventListener('change', () => {
+      currentSort = sortSelect.value;
+      applyFilterAndSort();
+    });
+  }
+
+  if (resetBrandBtn) resetBrandBtn.addEventListener('click', () => selectBrand('all'));
+  if (resetViscBtn) resetViscBtn.addEventListener('click', () => selectViscosity('all'));
+  if (resetPkgBtn) resetPkgBtn.addEventListener('click', () => selectPackage('all'));
+  if (clearAllBtn) clearAllBtn.addEventListener('click', resetAll);
+  if (resetAllEmptyBtn) resetAllEmptyBtn.addEventListener('click', resetAll);
+
+  // Mobile Drawer Toggle
+  function openMobileSidebar() {
+    if (shopSidebar) shopSidebar.classList.add('open');
+    if (sidebarBackdrop) sidebarBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileSidebar() {
+    if (shopSidebar) shopSidebar.classList.remove('open');
+    if (sidebarBackdrop) sidebarBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (mobileFilterBtn) mobileFilterBtn.addEventListener('click', openMobileSidebar);
+  if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeMobileSidebar);
+  if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', closeMobileSidebar);
+  if (sidebarApplyBtn) sidebarApplyBtn.addEventListener('click', closeMobileSidebar);
+</script>
+
+<style>
+  .shop-hero {
+    background: #ffffff;
+    color: #0f172a;
+    padding: 36px 0 28px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .shop-hero-inner {
+    max-width: 800px;
+  }
+  .badge-amber {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fef3c7;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .badge-amber svg {
+    color: #f59e0b;
+  }
+  .shop-hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+  }
+  .shop-hero p {
+    color: #475569;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .shop-section {
+    padding: 32px 0 70px;
+    background: #ffffff;
+  }
+  .shop-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+  }
+
+  /* Sidebar Styles */
+  .shop-sidebar {
+    width: 270px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 22px 18px;
+    position: sticky;
+    top: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  }
+  .sidebar-mobile-header,
+  .sidebar-mobile-footer {
+    display: none;
+  }
+  .filter-widget {
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 18px;
+  }
+  .filter-widget:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .widget-title {
+    font-size: 12.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+  .widget-title svg {
+    color: #f59e0b;
+    flex-shrink: 0;
+  }
+  .widget-reset-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .widget-reset-btn:hover {
+    background: #fef2f2;
+    text-decoration: underline;
+  }
+
+  /* Search Box */
+  .filter-search-box {
+    position: relative;
+    margin-top: 10px;
+  }
+  .filter-search-box .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+  }
+  .filter-search-box input {
+    width: 100%;
+    padding: 9px 30px 9px 34px;
+    font-size: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.15s;
+  }
+  .filter-search-box input:focus {
+    background: #ffffff;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+  }
+  .search-clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+  }
+
+  /* Filter List */
+  .filter-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .filter-item {
+    display: block;
+  }
+  .filter-label {
+    display: flex;
+    align-items: center;
+    padding: 5px 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #334155;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .filter-label:hover {
+    background: #f8fafc;
+    color: #0f172a;
+  }
+  .filter-label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .custom-radio {
+    width: 15px;
+    height: 15px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 50%;
+    margin-right: 9px;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .filter-label input[type="radio"]:checked + .custom-radio {
+    border-color: #f59e0b;
+    background: #ffffff;
+  }
+  .filter-label input[type="radio"]:checked + .custom-radio::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #f59e0b;
+  }
+  .filter-label input[type="radio"]:checked ~ .filter-text {
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .filter-text {
+    flex-grow: 1;
+  }
+  .filter-count {
+    font-size: 11.5px;
+    color: #94a3b8;
+    margin-left: auto;
+  }
+
+  /* Sidebar Promo Card */
+  .sidebar-promo-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #fffbeb 100%);
+    border: 1px solid #fef3c7;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .promo-badge {
+    display: inline-block;
+    background: #f59e0b;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+  }
+  .sidebar-promo-card h5 {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 5px;
+  }
+  .sidebar-promo-card p {
+    font-size: 11.5px;
+    color: #64748b;
+    line-height: 1.45;
+    margin: 0 0 10px;
+  }
+  .btn-sidebar-wa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    background: #25d366;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .btn-sidebar-wa:hover {
+    background: #20ba59;
+  }
+
+  /* Main Area */
+  .shop-main {
+    flex-grow: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  /* Top Toolbar */
+  .shop-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .shop-results-info {
+    font-size: 13.5px;
+    color: #64748b;
+  }
+  .shop-results-info strong {
+    color: #0f172a;
+    font-weight: 800;
+  }
+  .btn-mobile-filter {
+    display: none;
+    align-items: center;
+    gap: 7px;
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn-mobile-filter .filter-badge {
+    background: #f59e0b;
+    color: #0f172a;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    font-size: 10.5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+  }
+
+  .top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sort-select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 2px 8px;
+  }
+  .sort-select-wrap label {
+    color: #64748b;
+    display: flex;
+    align-items: center;
+  }
+  .sort-select-wrap select {
+    background: transparent;
+    border: none;
+    font-size: 12.5px;
+    color: #0f172a;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  /* Active Filter Tags */
+  .active-filters-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+    padding: 8px 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+  }
+  .active-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+  .active-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  :global(.active-filter-tag) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  :global(.active-filter-tag button) {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+  :global(.active-filter-tag button:hover) {
+    color: #ef4444;
+  }
+  .btn-clear-all {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  /* No Results State */
+  .no-results-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px dashed #cbd5e1;
+    margin-bottom: 36px;
+  }
+  .no-results-icon {
+    color: #94a3b8;
+    margin-bottom: 14px;
+  }
+  .no-results-state h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px;
+  }
+  .no-results-state p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0 0 16px;
+    max-width: 400px;
+  }
+  .btn-reset-all {
+    background: #f59e0b;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-reset-all:hover {
+    background: #d97706;
+  }
+
+  /* Products Grid (3 cols desktop) */
+  .shop-products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 40px;
+    width: 100%;
+  }
+  .shop-card {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 14px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .shop-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
+    border-color: #cbd5e1;
+  }
+  .shop-card-img-wrap {
+    position: relative;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    height: 180px;
+    margin-bottom: 10px;
+  }
+  .shop-card-img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+  }
+  .shop-card:hover .shop-card-img-wrap img {
+    transform: scale(1.04);
+  }
+  .pkg-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .shop-card-body {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .shop-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .brand-badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.04em;
+  }
+  .visc-pill {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .shop-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 6px;
+    min-height: 38px;
+  }
+  .shop-card-title a {
+    color: #0f172a;
+    transition: color 0.15s;
+  }
+  .shop-card-title a:hover {
+    color: #d97706;
+  }
+  .shop-card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 8px;
+    margin-top: auto;
+  }
+  .btn-detail {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 10px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-detail:hover {
+    border-color: #f59e0b;
+    color: #d97706;
+  }
+  .btn-quote {
+    background: #25d366;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 10px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background 0.15s;
+  }
+  .btn-quote:hover {
+    background: #20ba59;
+  }
+
+  /* Responsive Drawer & Grid */
+  @media (max-width: 1024px) {
+    .shop-sidebar {
+      width: 240px;
+    }
+    .shop-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .shop-layout {
+      display: block;
+    }
+    .btn-mobile-filter {
+      display: inline-flex;
+    }
+
+    .shop-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 320px;
+      max-width: 88vw;
+      height: 100vh;
+      z-index: 1000;
+      border-radius: 0;
+      border: none;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+      padding: 0 20px 80px;
+    }
+    .shop-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .sidebar-mobile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0 14px;
+      border-bottom: 1px solid #f1f5f9;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 10;
+    }
+    .sidebar-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar-close-btn {
+      background: #f1f5f9;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #0f172a;
+    }
+
+    .sidebar-mobile-footer {
+      display: block;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 320px;
+      max-width: 88vw;
+      padding: 12px 20px;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+      z-index: 10;
+    }
+    .btn-apply-filters {
+      width: 100%;
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 11px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .sidebar-backdrop {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(2px);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .sidebar-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .shop-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .shop-card {
+      padding: 10px;
+    }
+    .shop-card-img-wrap {
+      height: 135px;
+      padding: 6px;
+    }
+    .shop-card-title {
+      font-size: 12.5px;
+      min-height: 34px;
+    }
+    .shop-card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .btn-quote {
+      order: 1;
+      width: 100%;
+      padding: 8px 6px;
+      font-size: 12.5px;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    .btn-detail {
+      order: 2;
+      width: 100%;
+      padding: 6px 6px;
+      font-size: 11.5px;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    .shop-top-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .top-bar-left {
+      justify-content: space-between;
+    }
+    .top-bar-right {
+      width: 100%;
+    }
+    .sort-select-wrap {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+</style>

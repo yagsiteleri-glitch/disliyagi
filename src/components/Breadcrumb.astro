@@ -1,0 +1,136 @@
+---
+import siteConfig from '../data/siteConfig.json';
+
+interface CrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: CrumbItem[];
+}
+
+const { items } = Astro.props;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ana Sayfa",
+      "item": siteConfig.domain
+    },
+    ...items.map((item, idx) => ({
+      "@type": "ListItem",
+      "position": idx + 2,
+      "name": item.label,
+      ...(item.href ? { "item": new URL(item.href, siteConfig.domain).href } : {})
+    }))
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+<div class="site-breadcrumb-bar">
+  <div class="container">
+    <nav class="site-breadcrumb-nav" aria-label="Breadcrumb">
+      <a href="/" class="crumb-home-link">
+        <i class="fas fa-home"></i>
+        <span>Ana Sayfa</span>
+      </a>
+      {items.map((item) => (
+        <span class="crumb-segment">
+          <span class="crumb-sep">/</span>
+          {item.href ? (
+            <a href={item.href} class="crumb-link">{item.label}</a>
+          ) : (
+            <span class="crumb-current" title={item.label}>{item.label}</span>
+          )}
+        </span>
+      ))}
+    </nav>
+  </div>
+</div>
+
+<style>
+  .site-breadcrumb-bar {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 13px 0;
+  }
+  .site-breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .crumb-home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 500;
+    flex-shrink: 0;
+    transition: color 0.15s ease;
+  }
+  .crumb-home-link i {
+    font-size: 13px;
+    color: #94a3b8;
+    transition: color 0.15s ease;
+  }
+  .crumb-home-link:hover,
+  .crumb-home-link:hover i {
+    color: #d97706;
+  }
+  .crumb-segment {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .crumb-segment:last-child {
+    flex: 1 1 auto;
+  }
+  .crumb-sep {
+    color: #cbd5e1;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .crumb-link {
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 500;
+    flex-shrink: 0;
+    transition: color 0.15s ease;
+  }
+  .crumb-link:hover {
+    color: #d97706;
+  }
+  .crumb-current {
+    color: #0f172a;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .site-breadcrumb-bar {
+      padding: 10px 0;
+    }
+    .site-breadcrumb-nav {
+      font-size: 12.5px;
+      gap: 6px;
+    }
+    .crumb-segment {
+      gap: 6px;
+    }
+  }
+</style>

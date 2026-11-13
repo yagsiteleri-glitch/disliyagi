@@ -1,0 +1,412 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
+
+:root {
+  /* Elevated Brand Palette */
+  --primary-gold: #f59e0b;
+  --primary-gold-dark: #d97706;
+  --primary-gold-light: #fef3c7;
+  --primary-gold-hover: #b45309;
+
+  --dark-header: #0b0f17;
+  --dark-nav: #111827;
+  --dark-surface: #1e293b;
+
+  --navy-accent: #2563eb;
+  --navy-accent-hover: #1d4ed8;
+  --navy-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+
+  --whatsapp-green: #25d366;
+  --whatsapp-green-hover: #20ba5a;
+  --whatsapp-gradient: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --text-white: #ffffff;
+
+  --border-color: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --bg-page: #ffffff;
+  --bg-white: #ffffff;
+
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', var(--font-family);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.07);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.08), 0 2px 6px -2px rgb(0 0 0 / 0.04);
+  --shadow-lg: 0 12px 24px -4px rgb(0 0 0 / 0.08), 0 4px 8px -2px rgb(0 0 0 / 0.04);
+  --shadow-xl: 0 20px 35px -5px rgb(0 0 0 / 0.12);
+
+  --container-max: 1240px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Custom Yellow Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #f59e0b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d97706;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #f59e0b #ffffff;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--text-main);
+  background-color: #ffffff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button, input, select, textarea {
+  font-family: var(--font-family);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Modernized Section Headings */
+.section-title-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-heading-logo {
+  height: 26px;
+  width: auto;
+  max-width: 95px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.65;
+  transition: all 0.25s ease;
+}
+
+.section-heading-row:hover .brand-heading-logo {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+h2.section-heading {
+  font-size: 23px;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+h2.section-heading span.accent-highlight {
+  color: inherit;
+}
+
+.section-divider-line {
+  width: 100%;
+  height: 1px;
+  background: #e2e8f0;
+  margin-top: 10px;
+  margin-bottom: 24px;
+  border: none;
+}
+
+/* Modern Elevated Product Card */
+.orig-product-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-lg);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.orig-product-card:hover {
+  transform: translateY(-5px);
+  border-color: #cbd5e1;
+  box-shadow: 0 16px 30px -6px rgba(15, 23, 42, 0.1);
+}
+
+/* Card Badges Row */
+.card-top-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.stock-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #15803d;
+  background: #ecfdf5;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.stock-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.visc-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.02em;
+}
+
+.orig-img-wrap {
+  width: 100%;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.orig-img-wrap img {
+  max-height: 190px;
+  max-width: 190px;
+  object-fit: contain;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.orig-product-card:hover .orig-img-wrap img {
+  transform: scale(1.06);
+}
+
+.package-overlay-tag {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.orig-title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.35;
+  margin-bottom: 8px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.orig-title a:hover {
+  color: var(--primary-gold-dark);
+}
+
+/* Action Buttons (Elevated Modern Style) */
+.orig-buttons-row {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.btn-orig-wa {
+  background: #25d366;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 11px 8px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 3px 8px rgba(37, 211, 102, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-orig-wa:hover {
+  background: #20ba5a;
+  box-shadow: 0 6px 14px rgba(37, 211, 102, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-orig-teklif {
+  background: #1e3a8a;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 11px 8px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 3px 8px rgba(30, 58, 138, 0.2);
+  transition: all 0.2s ease;
+}
+
+.btn-orig-teklif:hover {
+  background: #172554;
+  box-shadow: 0 6px 14px rgba(30, 58, 138, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Floating WhatsApp Widget with Tooltip */
+.floating-chaty-container {
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chaty-tooltip {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: bounceTooltip 3s infinite;
+}
+
+@keyframes bounceTooltip {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-4px); }
+  60% { transform: translateY(-2px); }
+}
+
+.floating-chaty-btn {
+  width: 58px;
+  height: 58px;
+  background-color: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-chaty-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 26px rgba(37, 211, 102, 0.65);
+}
+
+@media (max-width: 640px) {
+  .floating-chaty-container {
+    bottom: 18px;
+    right: 18px;
+  }
+  .chaty-tooltip {
+    display: none !important;
+  }
+  .floating-chaty-btn {
+    width: 52px;
+    height: 52px;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  }
+}
+
+/* Scroll to top smooth */
+html {
+  scroll-behavior: smooth;
+}

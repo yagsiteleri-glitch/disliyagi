@@ -1,0 +1,186 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import siteConfig from '../data/siteConfig.json';
+---
+
+<Layout
+  title="Gizlilik Politikası | Hidrolik Yağı"
+  description="hidrolikyag.com Gizlilik Politikası. Müşteri verilerinin gizliliği, toplanan verilerin işlenme amaçları ve veri güvenliği ilkelerimiz."
+>
+  <Breadcrumb items={[{ label: "Gizlilik Politikası" }]} />
+
+  <section class="policy-section">
+    <div class="container policy-container">
+      <div class="policy-header">
+        <span class="badge badge-amber">Yasal Bilgilendirme</span>
+        <h1>Gizlilik Politikası</h1>
+        <p class="policy-lead">Son güncelleme tarihi: 24 Ekim 2024</p>
+      </div>
+
+      <div class="policy-content">
+        <article class="policy-card">
+          <h2>1. Giriş ve Genel İlkeler</h2>
+          <p>
+            hidrolikyag.com ("Şirket"), web sitemizi ziyaret eden müşterilerimizin, kurumsal alıcıların ve ziyaretçilerimizin kişisel verilerinin gizliliğine ve güvenliğine en üst düzeyde önem vermektedir. İşbu Gizlilik Politikası, sitemizi ziyaret ettiğinizde veya teklif/iletişim formlarımız aracılığıyla bizimle paylaştığınız bilgilerin nasıl toplandığını, kullanıldığını, saklandığını ve korunduğunu açıklamaktadır.
+          </p>
+        </article>
+
+        <article class="policy-card">
+          <h2>2. Toplanan Bilgiler ve Toplama Yöntemleri</h2>
+          <p>
+            Toptan ve perakende madeni yağ satışı, teklif hazırlama ve teknik destek süreçlerimizin yürütülmesi amacıyla aşağıdaki bilgiler toplanabilir:
+          </p>
+          <ul>
+            <li><strong>Kimlik ve İletişim Bilgileri:</strong> Adınız, soyadınız, firma unvanınız, e-posta adresiniz, telefon numaranız, teslimat ve fatura adresiniz.</li>
+            <li><strong>Talep ve Sipariş Bilgileri:</strong> İlgilendiğiniz hidrolik yağı ürünleri, ambalaj tipi (varil, teneke), miktar ve teknik gereksinimler.</li>
+            <li><strong>Teknik ve Trafik Verileri:</strong> IP adresiniz, tarayıcı türünüz, işletim sisteminiz, sitemizi ziyaret tarih ve saatiniz gibi sunucu kayıt bilgileri.</li>
+          </ul>
+        </article>
+
+        <article class="policy-card">
+          <h2>3. Bilgilerin Kullanım Amaçları</h2>
+          <p>Toplanan kişisel ve kurumsal bilgiler yalnızca aşağıdaki yasal ve ticari amaçlar doğrultusunda işlenir:</p>
+          <ul>
+            <li>Talebinize istinaden ürün tekliflerinin hazırlanması ve iletilmesi,</li>
+            <li>Siparişlerinizin teyit edilmesi, faturanızın düzenlenmesi ve sevkiyat planlaması,</li>
+            <li>Teknik TDS (Teknik Bilgi Formu) ve MSDS (Güvenlik Bilgi Formu) belgelerinin tarafınıza ulaştırılması,</li>
+            <li>İletişim ve satış sonrası destek hizmetlerinin eksiksiz yürütülmesi,</li>
+            <li>Mevzuattan doğan yasal saklama ve muhasebe yükümlülüklerinin yerine getirilmesi.</li>
+          </ul>
+        </article>
+
+        <article class="policy-card">
+          <h2>4. Bilgilerin Paylaşımı ve Aktarımı</h2>
+          <p>
+            Kişisel ve kurumsal verileriniz, yasal zorunluluklar ve lojistik operasyonlar haricinde hiçbir üçüncü şahıs veya kurumla ticari amaçla satılmaz, kiralanmaz veya paylaşılmaz. Verileriniz yalnızca:
+          </p>
+          <ul>
+            <li>Siparişlerinizin teslimatı için anlaşmalı nakliye, ambar ve kargo şirketleriyle,</li>
+            <li>Yasal zorunluluk halinde yetkili kamu kurum ve kuruluşları ile mahkemelerle paylaşılabilir.</li>
+          </ul>
+        </article>
+
+        <article class="policy-card">
+          <h2>5. Veri Güvenliği ve Saklama</h2>
+          <p>
+            Sitemiz üzerinden paylaşılan tüm veriler SSL (Secure Sockets Layer) şifreleme teknolojisi ile korunmaktadır. Bilgilerinize yetkisiz erişimi engellemek, veri bütünlüğünü korumak ve verilerin doğru kullanılmasını sağlamak için güncel teknik ve idari güvenlik önlemleri uygulanmaktadır.
+          </p>
+        </article>
+
+        <article class="policy-card">
+          <h2>6. İletişim</h2>
+          <p>
+            Gizlilik politikamız ile ilgili her türlü soru, görüş veya talepleriniz için aşağıdaki iletişim kanallarımız üzerinden bizimle irtibata geçebilirsiniz:
+          </p>
+          <div class="policy-contact-info">
+            <p><strong>Telefon / Satış Hattı:</strong> <a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a></p>
+            <p><strong>WhatsApp Hattı:</strong> <a href={`https://wa.me/${siteConfig.whatsapp}`} target="_blank" rel="noopener noreferrer">0506 940 12 10</a></p>
+            <p><strong>Depo Adresi:</strong> {siteConfig.address}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+
+
+  .policy-section {
+    padding: 60px 0 90px;
+    background: #ffffff;
+  }
+  .policy-container {
+    max-width: 900px;
+  }
+  .policy-header {
+    margin-bottom: 40px;
+  }
+  .badge-amber {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .policy-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 12px 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .policy-lead {
+    color: #64748b;
+    font-size: 14px;
+  }
+  .policy-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .policy-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 30px 34px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  .policy-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .policy-card p {
+    color: #334155;
+    font-size: 14.5px;
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  .policy-card p:last-child {
+    margin-bottom: 0;
+  }
+  .policy-card ul {
+    margin: 12px 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .policy-card ul li {
+    color: #334155;
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .policy-contact-info {
+    margin-top: 14px;
+    background: #ffffff;
+    padding: 16px 20px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .policy-contact-info p {
+    margin: 0;
+    font-size: 14px;
+  }
+  .policy-contact-info a {
+    color: #0f172a;
+    font-weight: 600;
+  }
+  .policy-contact-info a:hover {
+    color: #f59e0b;
+  }
+</style>

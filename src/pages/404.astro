@@ -1,0 +1,220 @@
+---
+import Layout from '../layouts/Layout.astro';
+import siteConfig from '../data/siteConfig.json';
+---
+
+<Layout
+  title="404 - Sayfa Bulunamadı | Hidrolik Yağı"
+  description="Aradığınız sayfa bulunamadı. Hidrolik yağı çeşitleri, toptan fiyat teklifleri ve marka katalogları için ana sayfamızı ziyaret edin."
+>
+  <section class="notfound-section">
+    <div class="container notfound-box">
+      <div class="notfound-code">404</div>
+      <span class="notfound-badge">Sayfa Bulunamadı</span>
+      <h1 class="notfound-title">Aradığınız Sayfaya Ulaşılamadı</h1>
+      <p class="notfound-desc">
+        Ulaşmaya çalıştığınız sayfa taşınmış, silinmiş veya adresi değişmiş olabilir. 
+        Aşağıdaki bağlantılardan aradığınız hidrolik yağı ürününe hızlıca ulaşabilirsiniz.
+      </p>
+
+      <div class="notfound-actions">
+        <a href="/" class="btn-notfound-primary">
+          <i class="fas fa-home"></i>
+          <span>Ana Sayfaya Dön</span>
+        </a>
+        <a href="/magaza" class="btn-notfound-secondary">
+          <i class="fas fa-th-large"></i>
+          <span>Tüm Ürünler (Mağaza)</span>
+        </a>
+        <a
+          href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent('[hidrolikyag.com] URUN DANISMA\n\nMerhaba, hidrolikyag.com sitesinde aradigim urunu bulamadim, yardimci olabilir misiniz?')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-notfound-wa"
+        >
+          <i class="fab fa-whatsapp"></i>
+          <span>WhatsApp Destek</span>
+        </a>
+      </div>
+
+      <div class="notfound-popular">
+        <span class="popular-label">Popüler Markalar:</span>
+        <div class="popular-chips">
+          <a href="/mobil" class="chip">Mobil</a>
+          <a href="/castrol" class="chip">Castrol</a>
+          <a href="/shell" class="chip">Shell</a>
+          <a href="/artoil" class="chip">Artoil</a>
+          <a href="/petrol-ofisi" class="chip">Petrol Ofisi</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .notfound-section {
+    padding: 70px 20px 90px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 65vh;
+  }
+  .notfound-box {
+    max-width: 640px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .notfound-code {
+    font-size: 96px;
+    font-weight: 900;
+    line-height: 1;
+    color: #f59e0b;
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+    text-shadow: 0 4px 18px rgba(245, 158, 11, 0.2);
+  }
+  .notfound-badge {
+    display: inline-block;
+    background: #fffbeb;
+    border: 1px solid #fef3c7;
+    color: #b45309;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .notfound-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+  }
+  .notfound-desc {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 32px;
+    max-width: 520px;
+  }
+  .notfound-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+    width: 100%;
+  }
+  .btn-notfound-primary {
+    background: #f59e0b;
+    color: #0f172a;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+  .btn-notfound-primary:hover {
+    background: #d97706;
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .btn-notfound-secondary {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+  .btn-notfound-secondary:hover {
+    background: #ffffff;
+    border-color: #f59e0b;
+    color: #d97706;
+  }
+  .btn-notfound-wa {
+    background: #25d366;
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .btn-notfound-wa:hover {
+    background: #20ba59;
+  }
+  .notfound-popular {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 24px;
+    border-top: 1px solid #f1f5f9;
+    width: 100%;
+  }
+  .popular-label {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 600;
+  }
+  .popular-chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .chip {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #334155;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .chip:hover {
+    border-color: #f59e0b;
+    color: #0f172a;
+  }
+
+  @media (max-width: 640px) {
+    .notfound-code {
+      font-size: 72px;
+    }
+    .notfound-title {
+      font-size: 22px;
+    }
+    .notfound-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    .btn-notfound-primary, .btn-notfound-secondary, .btn-notfound-wa {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

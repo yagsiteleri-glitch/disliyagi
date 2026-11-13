@@ -1,0 +1,225 @@
+---
+interface Props {
+  product: {
+    id: string;
+    name: string;
+    brand: string;
+    brandName?: string;
+    viscosity: string;
+    packageSize: string;
+    packageType?: string;
+    shortDescription?: string;
+    description?: string;
+    image: string;
+  };
+}
+
+const { product } = Astro.props;
+const brandLabel = (product.brandName || product.brand).toUpperCase();
+const pkgType = product.packageType || (product.packageSize.includes('Varil') ? 'Varil' : product.packageSize.includes('Teneke') ? 'Teneke' : 'Bidon');
+const shortDesc = product.shortDescription || product.description || 'Aşınma önleyici katkı paketleriyle zenginleştirilmiş üstün kaliteli mineral baz hidrolik sistem yağı.';
+---
+
+<article class="b2b-product-card" data-viscosity={product.viscosity}>
+  <div class="card-img-wrap">
+    <a href={`/urun/${product.id}`} class="img-link" aria-label={product.name}>
+      <img src={product.image} alt={product.name} loading="lazy" />
+    </a>
+  </div>
+
+  <div class="card-body">
+    <div class="card-meta">
+      <span class="card-brand">{brandLabel}</span>
+      <span class="card-visc">{product.viscosity}</span>
+    </div>
+
+    <h3 class="card-title">
+      <a href={`/urun/${product.id}`}>{product.name}</a>
+    </h3>
+
+    <div class="card-actions">
+      <a
+        href={`https://wa.me/905069401210?text=${encodeURIComponent(`[hidrolikyag.com] TEKLIF TALEBI\n\nUrun: ${product.name}\n\nMerhaba, bu urun icin guncel toptan ve perakende fiyat teklifi rica ediyorum.`)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-card-quote"
+      >
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.52 0-3-.4-4.3-1.17l-.31-.18-3.19.84.85-3.11-.2-.32c-.85-1.36-1.3-2.94-1.3-4.57 0-4.7 3.83-8.53 8.54-8.53 2.28 0 4.42.89 6.03 2.5 1.61 1.61 2.5 3.75 2.5 6.03 0 4.71-3.83 8.53-8.52 8.53zm4.68-6.39c-.26-.13-1.52-.75-1.76-.84-.23-.09-.4-.13-.57.13-.17.26-.66.84-.81 1.01-.15.17-.3.19-.56.06-.26-.13-1.08-.4-2.06-1.27-.76-.68-1.28-1.52-1.43-1.78-.15-.26-.02-.4.11-.53.12-.11.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.89-.21-.5-.42-.43-.57-.44l-.49-.01c-.17 0-.45.06-.68.32-.23.26-.89.87-.89 2.12 0 1.25.91 2.46 1.04 2.63.13.17 1.8 2.75 4.36 3.86.61.26 1.09.42 1.46.54.61.2 1.17.17 1.61.1.49-.07 1.52-.62 1.74-1.22.21-.6.21-1.12.15-1.22-.06-.1-.23-.17-.49-.3z"/></svg> <span>Teklif Al</span>
+      </a>
+      <a href={`/urun/${product.id}`} class="btn-card-detail">İncele</a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .b2b-product-card {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .b2b-product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+    border-color: #cbd5e1;
+  }
+  .card-img-wrap {
+    position: relative;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    height: 190px;
+    margin-bottom: 12px;
+  }
+  .img-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .card-img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+  }
+  .b2b-product-card:hover .card-img-wrap img {
+    transform: scale(1.04);
+  }
+  .badge-pkg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    z-index: 2;
+  }
+
+  .card-body {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .card-brand {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.04em;
+  }
+  .card-visc {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .card-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 8px;
+    min-height: 40px;
+  }
+  .card-title a {
+    color: #0f172a;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .card-title a:hover {
+    color: #d97706;
+  }
+  .card-actions {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 8px;
+    margin-top: auto;
+  }
+  .btn-card-detail {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 10px;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .btn-card-detail:hover {
+    background: #ffffff;
+    border-color: #f59e0b;
+    color: #d97706;
+  }
+  .btn-card-quote {
+    background: #25d366;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 10px;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background 0.15s ease;
+    white-space: nowrap;
+  }
+  .btn-card-quote:hover {
+    background: #20ba59;
+  }
+
+  @media (max-width: 640px) {
+    .b2b-product-card {
+      padding: 10px;
+    }
+    .card-title {
+      font-size: 12.5px;
+      min-height: 34px;
+    }
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .btn-card-quote {
+      width: 100%;
+      padding: 8px 6px;
+      font-size: 12.5px;
+      justify-content: center;
+    }
+    .btn-card-detail {
+      width: 100%;
+      padding: 6px 6px;
+      font-size: 11.5px;
+      justify-content: center;
+    }
+  }
+</style>

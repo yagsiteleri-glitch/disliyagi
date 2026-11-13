@@ -1,0 +1,708 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import siteConfig from '../data/siteConfig.json';
+---
+
+<Layout
+  title="İletişim & Merkez Sevkiyat Deposu | hidrolikyag.com"
+  description="Hidrolik yağı toptan sipariş, anında fiyat teklifi ve teknik destek. Arap Camii Mh. Bakır Sk. No:6/A Beyoğlu/İstanbul deposu ve +90 506 940 1210 WhatsApp hattı."
+>
+  <Breadcrumb items={[{ label: "İletişim" }]} />
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-header">
+        <span class="badge-amber">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Müşteri & Satış Hattı
+        </span>
+        <h1>İletişim & Sevkiyat Depomuz</h1>
+        <p>Her türlü hidrolik yağı ihtiyacınız, teknik viskozite eşleştirme ve toptan siparişleriniz için uzman satış ekibimizle anında iletişime geçebilirsiniz.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact Cards Column -->
+        <div class="contact-cards-col">
+          <!-- Phone Card -->
+          <a href={`tel:${siteConfig.phoneRaw}`} class="c-card c-card-phone">
+            <div class="c-icon-box icon-phone">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="c-detail">
+              <div class="c-tag">TELEFON İLE SİPARİŞ & DANIŞMA</div>
+              <strong class="c-highlight">{siteConfig.phone}</strong>
+              <span>Hemen arayın, siparişinizi ve sevkiyatınızı planlayalım</span>
+            </div>
+            <div class="c-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </a>
+
+          <!-- WhatsApp Card -->
+          <a href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent('[hidrolikyag.com] MUSTERI ILETISIM HATTI\n\nMerhaba, hidrolik yaglari hakkinda detayli bilgi ve fiyat teklifi almak istiyorum.')}`} target="_blank" rel="noopener noreferrer" class="c-card c-card-wa">
+            <div class="c-icon-box icon-wa">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.52 0-3-.4-4.3-1.17l-.31-.18-3.19.84.85-3.11-.2-.32c-.85-1.36-1.3-2.94-1.3-4.57 0-4.7 3.83-8.53 8.54-8.53 2.28 0 4.42.89 6.03 2.5 1.61 1.61 2.5 3.75 2.5 6.03 0 4.71-3.83 8.53-8.52 8.53zm4.68-6.39c-.26-.13-1.52-.75-1.76-.84-.23-.09-.4-.13-.57.13-.17.26-.66.84-.81 1.01-.15.17-.3.19-.56.06-.26-.13-1.08-.4-2.06-1.27-.76-.68-1.28-1.52-1.43-1.78-.15-.26-.02-.4.11-.53.12-.11.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.89-.21-.5-.42-.43-.57-.44l-.49-.01c-.17 0-.45.06-.68.32-.23.26-.89.87-.89 2.12 0 1.25.91 2.46 1.04 2.63.13.17 1.8 2.75 4.36 3.86.61.26 1.09.42 1.46.54.61.2 1.17.17 1.61.1.49-.07 1.52-.62 1.74-1.22.21-.6.21-1.12.15-1.22-.06-.1-.23-.17-.49-.3z"/></svg>
+            </div>
+            <div class="c-detail">
+              <div class="c-tag-row">
+                <span class="c-tag wa-tag">WHATSAPP DESTEK HATTI</span>
+                <span class="c-status-live"><span class="dot-pulse"></span> Çevrimiçi</span>
+              </div>
+              <strong class="c-highlight">{siteConfig.phone}</strong>
+              <span>Anında toptan fiyat teklifi ve TDS/MSDS teknik föy talep edin</span>
+            </div>
+            <div class="c-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </a>
+
+          <!-- Location Card -->
+          <div class="c-card">
+            <div class="c-icon-box icon-location">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="c-detail">
+              <div class="c-tag">MERKEZ DEPO & SEVKİYAT</div>
+              <strong class="c-title">İstanbul Depo</strong>
+              <span>{siteConfig.address}</span>
+              <span class="c-subnote">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                İstanbul İçi Aynı Gün & Türkiye Geneli Ambar
+              </span>
+            </div>
+          </div>
+
+          <!-- Working Hours Card -->
+          <div class="c-card">
+            <div class="c-icon-box icon-clock">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="c-detail">
+              <div class="c-tag">ÇALIŞMA & SEVKİYAT SAATLERİ</div>
+              <strong class="c-title">09:30 - 17:30</strong>
+              <span>Hafta içi mesai saatlerimizde aktifiz</span>
+            </div>
+          </div>
+
+          <!-- Trust Callout -->
+          <div class="c-trust-card">
+            <div class="trust-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              GÜVENLİ TOPTAN TEDARİK
+            </div>
+            <p>Tüm ürünlerimiz üretici faturalı, orijinal mühürlü ambalajında ve teknik analiz onaylı olarak sevk edilmektedir.</p>
+          </div>
+        </div>
+
+        <!-- Modern Contact Form Card -->
+        <div class="contact-form-card">
+          <div class="form-header-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            HIZLI İLETİŞİM FORMU
+          </div>
+          <h2>Hızlı Teklif & Mesaj Bırakın</h2>
+          <p class="form-subtitle">Formu doldurarak ihtiyacınız olan hidrolik yağını belirtin; satış temsilcimiz en uygun iskonto ile anında WhatsApp üzerinden dönüş yapsın.</p>
+
+          <form id="contact-form" class="c-form">
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="c_name">Adınız Soyadınız <span class="req">*</span></label>
+                <input type="text" id="c_name" required placeholder="Adınız ve Soyadınız" autocomplete="name" />
+              </div>
+
+              <div class="form-group">
+                <label for="c_phone">Telefon Numaranız <span class="req">*</span></label>
+                <input type="tel" id="c_phone" required placeholder="05XX XXX XX XX" autocomplete="tel" />
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="c_company">Şirket / Firma Adı <small class="opt">(Opsiyonel)</small></label>
+                <input type="text" id="c_company" placeholder="Firma Ünvanı" />
+              </div>
+
+              <div class="form-group">
+                <label for="c_subject">Talep Türü</label>
+                <select id="c_subject">
+                  <option value="Toptan Fiyat Teklifi Talebi">Toptan Fiyat Teklifi Talebi</option>
+                  <option value="Varil Siparişi (208 L)">Varil Siparişi (208 L)</option>
+                  <option value="Teneke Siparişi (16 L)">Teneke Siparişi (16 L)</option>
+                  <option value="Teknik TDS / MSDS Talebi">Teknik TDS / MSDS Talebi</option>
+                  <option value="Genel Bilgi & Danışma">Genel Bilgi & Danışma</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Simplified Clean Quick Selection Chips -->
+            <div class="quick-selection-wrap">
+              <div class="selection-title-row">
+                <span class="selection-label">İlgilendiğiniz Marka veya Viskozite:</span>
+                <span class="selection-hint">Hızlı eklemek için tıklayabilirsiniz</span>
+              </div>
+              <div class="chips-container">
+                <div class="chips-group">
+                  <span class="group-label">Marka:</span>
+                  <div class="chips-list">
+                    <button type="button" class="chip-item" data-tag="Artoil">Artoil</button>
+                    <button type="button" class="chip-item" data-tag="Castrol">Castrol</button>
+                    <button type="button" class="chip-item" data-tag="Mobil">Mobil</button>
+                    <button type="button" class="chip-item" data-tag="Shell">Shell</button>
+                    <button type="button" class="chip-item" data-tag="Petrol Ofisi">Petrol Ofisi</button>
+                  </div>
+                </div>
+                <div class="chips-group">
+                  <span class="group-label">Viskozite:</span>
+                  <div class="chips-list">
+                    <button type="button" class="chip-item" data-tag="ISO VG 32">ISO VG 32</button>
+                    <button type="button" class="chip-item" data-tag="ISO VG 46">ISO VG 46</button>
+                    <button type="button" class="chip-item" data-tag="ISO VG 68">ISO VG 68</button>
+                    <button type="button" class="chip-item" data-tag="ISO VG 100">ISO VG 100</button>
+                    <button type="button" class="chip-item" data-tag="Varil (208L)">Varil (208L)</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="c_message">Mesajınız / İhtiyaç Detayı <span class="req">*</span></label>
+              <textarea id="c_message" rows="4" required placeholder="Örnek: 2 varil Shell Tellus S2 MX 46 ve 5 teneke Artoil 68 için fiyat teklifi almak istiyorum..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-contact">
+              <span class="btn-content">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.52 0-3-.4-4.3-1.17l-.31-.18-3.19.84.85-3.11-.2-.32c-.85-1.36-1.3-2.94-1.3-4.57 0-4.7 3.83-8.53 8.54-8.53 2.28 0 4.42.89 6.03 2.5 1.61 1.61 2.5 3.75 2.5 6.03 0 4.71-3.83 8.53-8.52 8.53zm4.68-6.39c-.26-.13-1.52-.75-1.76-.84-.23-.09-.4-.13-.57.13-.17.26-.66.84-.81 1.01-.15.17-.3.19-.56.06-.26-.13-1.08-.4-2.06-1.27-.76-.68-1.28-1.52-1.43-1.78-.15-.26-.02-.4.11-.53.12-.11.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.57-1.38-.79-1.89-.21-.5-.42-.43-.57-.44l-.49-.01c-.17 0-.45.06-.68.32-.23.26-.89.87-.89 2.12 0 1.25.91 2.46 1.04 2.63.13.17 1.8 2.75 4.36 3.86.61.26 1.09.42 1.46.54.61.2 1.17.17 1.61.1.49-.07 1.52-.62 1.74-1.22.21-.6.21-1.12.15-1.22-.06-.1-.23-.17-.49-.3z"/></svg>
+                <span>Mesajı WhatsApp İle İlet</span>
+              </span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+
+            <div class="form-trust-notes">
+              <span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                %100 Gizlilik Garantisi
+              </span>
+              <span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Anında WhatsApp İletimi
+              </span>
+              <span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                TDS & MSDS Belgeli
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  // Add quick chips to textarea
+  document.querySelectorAll('.chip-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = btn.getAttribute('data-tag');
+      const textarea = document.getElementById('c_message');
+      if (textarea && tag) {
+        btn.classList.toggle('active');
+        if (btn.classList.contains('active')) {
+          if (textarea.value.trim().length > 0) {
+            textarea.value = textarea.value.trim() + ', ' + tag;
+          } else {
+            textarea.value = tag + ' hidrolik yağı için fiyat teklifi almak istiyorum.';
+          }
+        }
+      }
+    });
+  });
+
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('c_name').value.trim();
+      const phone = document.getElementById('c_phone').value.trim();
+      const company = document.getElementById('c_company').value.trim();
+      const subject = document.getElementById('c_subject').value;
+      const msg = document.getElementById('c_message').value.trim();
+
+      let text = `[hidrolikyag.com] ILETISIM VE BILGI TALEBI\n\n`;
+      text += `Ad Soyad: ${name}\n`;
+      text += `Telefon: ${phone}\n`;
+      if (company) {
+        text += `Firma: ${company}\n`;
+      }
+      text += `Konu: ${subject}\n`;
+      if (msg) {
+        text += `Mesaj: ${msg}\n`;
+      }
+      text += `\nKaynak: hidrolikyag.com Iletisim Formu`;
+
+      window.open(`https://wa.me/905069401210?text=${encodeURIComponent(text)}`, '_blank');
+    });
+  }
+</script>
+
+<style>
+  .contact-section {
+    padding: 36px 0 70px;
+    background: #ffffff;
+  }
+  .contact-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 40px;
+  }
+  .badge-amber {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fef3c7;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .badge-amber svg {
+    color: #f59e0b;
+  }
+  .contact-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+  }
+  .contact-header p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 36px;
+    align-items: start;
+  }
+
+  /* Contact Cards Column */
+  .contact-cards-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .c-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    text-decoration: none;
+    position: relative;
+  }
+  .c-card:hover {
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+  .c-card-phone:hover {
+    border-color: #f59e0b;
+  }
+  .c-card-wa {
+    background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+    border-color: #bbf7d0;
+  }
+  .c-card-wa:hover {
+    border-color: #22c55e;
+  }
+
+  /* Icon Box */
+  .c-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .c-card:hover .c-icon-box {
+    transform: scale(1.08);
+  }
+  .icon-phone {
+    background: #fffbeb;
+    color: #d97706;
+    border: 1px solid #fef3c7;
+  }
+  .icon-wa {
+    background: #dcfce7;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+  }
+  .icon-location {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #dbeafe;
+  }
+  .icon-clock {
+    background: #f8fafc;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+  }
+
+  .c-detail {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .c-tag {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    margin-bottom: 3px;
+  }
+  .c-tag-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+  .wa-tag {
+    color: #15803d;
+  }
+  .c-status-live {
+    font-size: 11px;
+    font-weight: 700;
+    color: #16a34a;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .dot-pulse {
+    width: 7px;
+    height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    animation: dotPulseAnim 1.8s infinite;
+  }
+  @keyframes dotPulseAnim {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+  }
+
+  .c-highlight {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin-bottom: 2px;
+  }
+  .c-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 2px;
+  }
+  .c-detail span {
+    font-size: 12.5px;
+    color: #64748b;
+    line-height: 1.45;
+  }
+  .c-subnote {
+    font-size: 11.5px !important;
+    font-weight: 700;
+    color: #059669 !important;
+    margin-top: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .c-arrow {
+    color: #cbd5e1;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .c-card:hover .c-arrow {
+    transform: translateX(4px);
+    color: #0f172a;
+  }
+
+  .c-trust-card {
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .trust-badge {
+    font-size: 11px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .trust-badge svg {
+    color: #f59e0b;
+  }
+  .c-trust-card p {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Form Card */
+  .contact-form-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 32px 36px;
+    box-shadow: 0 8px 30px -4px rgba(15, 23, 42, 0.08);
+  }
+  .form-header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .form-header-badge svg {
+    color: #f59e0b;
+  }
+  .contact-form-card h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .form-subtitle {
+    font-size: 13.5px;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0 0 24px;
+  }
+
+  .c-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+  }
+  .req {
+    color: #ef4444;
+  }
+  .opt {
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: #0f172a;
+    background: #f8fafc;
+    outline: none;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .form-group textarea {
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    background: #ffffff;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+  }
+
+  /* Clean Quick Selection Chips */
+  .quick-selection-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+  }
+  .selection-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .selection-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+  }
+  .selection-hint {
+    font-size: 11.5px;
+    color: #94a3b8;
+  }
+  .chips-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .chips-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .group-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #64748b;
+    min-width: 60px;
+  }
+  .chips-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex-grow: 1;
+  }
+  .chip-item {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .chip-item:hover {
+    background: #ffffff;
+    border-color: #94a3b8;
+    color: #0f172a;
+  }
+  .chip-item.active {
+    background: #0f172a;
+    border-color: #0f172a;
+    color: #ffffff;
+  }
+
+  /* Submit Button */
+  .btn-submit-contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: #25d366;
+    color: #ffffff;
+    border: none;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+    margin-top: 6px;
+  }
+  .btn-submit-contact:hover {
+    background: #20ba59;
+    transform: translateY(-1px);
+  }
+  .btn-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Trust Notes */
+  .form-trust-notes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 4px;
+    font-size: 11.5px;
+    color: #64748b;
+    font-weight: 600;
+  }
+  .form-trust-notes span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .form-trust-notes svg {
+    color: #10b981;
+  }
+
+  @media (max-width: 992px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .contact-form-card {
+      padding: 24px 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .form-row-2 {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .chips-group {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .form-trust-notes {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+  }
+</style>

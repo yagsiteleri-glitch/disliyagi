@@ -1,0 +1,183 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import siteConfig from '../data/siteConfig.json';
+---
+
+<Layout
+  title="KVKK Aydınlatma Metni | Hidrolik Yağı"
+  description="6698 Sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca aydınlatma metni. Veri sorumlusu sıfatıyla haklarınız ve işleme şartları."
+>
+  <Breadcrumb items={[{ label: "KVKK Aydınlatma Metni" }]} />
+
+  <section class="policy-section">
+    <div class="container policy-container">
+      <div class="policy-header">
+        <span class="badge badge-amber">6698 Sayılı Kanun Uyarınca</span>
+        <h1>KVKK Aydınlatma Metni</h1>
+        <p class="policy-lead">Kişisel Verilerin Korunması ve İşlenmesine İlişkin Aydınlatma Bildirimi</p>
+      </div>
+
+      <div class="policy-content">
+        <article class="policy-card">
+          <h2>1. Veri Sorumlusu</h2>
+          <p>
+            6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) uyarınca, hidrolikyag.com olarak “Veri Sorumlusu” sıfatıyla kişisel verilerinizi kanuna ve dürüstlük kuralına uygun olarak toplamakta, işlemekte ve korumaktayız.
+          </p>
+        </article>
+
+        <article class="policy-card">
+          <h2>2. Kişisel Verilerin Hangi Amaçla İşleneceği</h2>
+          <p>Kişisel verileriniz aşağıdaki amaçlarla KVKK'nın 5. ve 6. maddelerinde belirtilen şartlara uygun olarak işlenmektedir:</p>
+          <ul>
+            <li>Şirketimiz tarafından sunulan endüstriyel hidrolik yağı ve madeni yağ ürün ve hizmetlerinin tarafınıza sunulması,</li>
+            <li>Fiyat teklifi oluşturulması, tedarik ve lojistik süreçlerinin yürütülmesi,</li>
+            <li>Sipariş, faturalandırma ve tahsilat süreçlerinin takibi,</li>
+            <li>Talep ve şikayetlerinizin değerlendirilmesi ve çözüme kavuşturulması,</li>
+            <li>Yasal ve idari yükümlülüklerin eksiksiz yerine getirilmesi.</li>
+          </ul>
+        </article>
+
+        <article class="policy-card">
+          <h2>3. İşlenen Kişisel Verilerin Aktarımı</h2>
+          <p>
+            Kişisel verileriniz, yukarıda belirtilen amaçların gerçekleştirilmesi doğrultusunda, mevzuatın izin verdiği ölçüde; yetkili kamu kurum ve kuruluşlarına, kargo ve lojistik çözüm ortaklarımıza, mali müşavir ve hukuki danışmanlarımıza aktarılabilmektedir.
+          </p>
+        </article>
+
+        <article class="policy-card">
+          <h2>4. Kişisel Veri Toplamanın Yöntemi ve Hukuki Sebebi</h2>
+          <p>
+            Kişisel verileriniz, internet sitemizdeki iletişim ve teklif formları, e-posta yazışmaları, telefon görüşmeleri ve doğrudan temas vasıtasıyla elektronik ve fiziki ortamlarda toplanmaktadır. Bu veriler, KVKK m. 5/2 uyarınca “bir sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması” ve “veri sorumlusunun meşru menfaatleri” hukuki sebeplerine dayalı olarak işlenmektedir.
+          </p>
+        </article>
+
+        <article class="policy-card">
+          <h2>5. KVKK’nın 11. Maddesi Uyarınca Haklarınız</h2>
+          <p>KVKK'nın 11. maddesi kapsamında veri sahibi olarak aşağıdaki haklara sahipsiniz:</p>
+          <ul>
+            <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme,</li>
+            <li>Kişisel verileriniz işlenmişse buna ilişkin bilgi talep etme,</li>
+            <li>İşlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,</li>
+            <li>Yurt içinde veya yurt dışında kişisel verilerin aktarıldığı üçüncü kişileri bilme,</li>
+            <li>Eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteme,</li>
+            <li>KVKK 7. maddede öngörülen şartlar çerçevesinde kişisel verilerin silinmesini veya yok edilmesini isteme,</li>
+            <li>İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme.</li>
+          </ul>
+        </article>
+
+        <article class="policy-card">
+          <h2>6. Başvuru ve İletişim</h2>
+          <p>
+            Haklarınıza ilişkin taleplerinizi yazılı olarak veya kayıtlı e-posta (KEP) adresi, güvenli elektronik imza veya tarafımıza daha önce bildirdiğiniz ve sistemimizde kayıtlı bulunan e-posta adresinizi kullanmak suretiyle şirketimize iletebilirsiniz.
+          </p>
+          <div class="policy-contact-info">
+            <p><strong>İletişim & Başvuru Hattı:</strong> <a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a></p>
+            <p><strong>Adres:</strong> {siteConfig.address}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+
+
+  .policy-section {
+    padding: 60px 0 90px;
+    background: #ffffff;
+  }
+  .policy-container {
+    max-width: 900px;
+  }
+  .policy-header {
+    margin-bottom: 40px;
+  }
+  .badge-amber {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .policy-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 12px 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .policy-lead {
+    color: #64748b;
+    font-size: 14px;
+  }
+  .policy-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .policy-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 30px 34px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  .policy-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .policy-card p {
+    color: #334155;
+    font-size: 14.5px;
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  .policy-card p:last-child {
+    margin-bottom: 0;
+  }
+  .policy-card ul {
+    margin: 12px 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .policy-card ul li {
+    color: #334155;
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .policy-contact-info {
+    margin-top: 14px;
+    background: #ffffff;
+    padding: 16px 20px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .policy-contact-info p {
+    margin: 0;
+    font-size: 14px;
+  }
+  .policy-contact-info a {
+    color: #0f172a;
+    font-weight: 600;
+  }
+  .policy-contact-info a:hover {
+    color: #f59e0b;
+  }
+</style>
