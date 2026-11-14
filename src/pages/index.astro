@@ -772,9 +772,14 @@ const shellProducts = products.filter(p => p.brand === 'shell');
 
   /* 4-COLUMN PRODUCT GRID DESKTOP / 2-COLUMN MOBILE */
   .product-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .product-cards-grid > :global(*) {
+    flex: 0 0 270px;
+    max-width: 300px;
   }
 
   /* SEO ARTICLE */
