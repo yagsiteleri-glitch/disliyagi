@@ -16,7 +16,10 @@ interface Props {
 const { brandKey, brandName, brandLogo, heroTitle, heroDesc, metaDesc } = Astro.props;
 
 // Filter products for this brand
-const brandProducts = products.filter(p => p.brand === brandKey);
+const brandProducts = products.filter(p => {
+  const b = (p.brandSlug || p.brand || '').toLowerCase().replace(/\s+/g, '-');
+  return b === brandKey.toLowerCase().replace(/\s+/g, '-');
+});
 
 // Get unique viscosities for filter (sorted numerically)
 const viscosities = Array.from(new Set(brandProducts.map(p => p.viscosity))).sort((a, b) => {

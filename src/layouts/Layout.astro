@@ -3,11 +3,12 @@ import siteConfig from '../data/siteConfig.json';
 import products from '../data/products.json';
 import '../styles/global.css';
 
-const artoilProducts = products.filter(p => p.brand === 'artoil');
-const castrolProducts = products.filter(p => p.brand === 'castrol');
-const mobilProducts = products.filter(p => p.brand === 'mobil');
-const poProducts = products.filter(p => p.brand === 'petrol-ofisi');
-const shellProducts = products.filter(p => p.brand === 'shell');
+const matchBrand = (p, key) => (p.brandSlug || p.brand || '').toLowerCase().replace(/\s+/g, '-') === key.toLowerCase().replace(/\s+/g, '-');
+const artoilProducts = products.filter(p => matchBrand(p, 'artoil'));
+const castrolProducts = products.filter(p => matchBrand(p, 'castrol'));
+const mobilProducts = products.filter(p => matchBrand(p, 'mobil'));
+const poProducts = products.filter(p => matchBrand(p, 'petrol-ofisi'));
+const shellProducts = products.filter(p => matchBrand(p, 'shell'));
 
 interface Props {
   title?: string;
