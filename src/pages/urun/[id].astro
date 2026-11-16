@@ -47,7 +47,7 @@ if (relatedProducts.length < 4) {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": product.name,
-    "image": product.image,
+    "image": product.image?.startsWith('http') ? product.image : `${siteConfig.domain}${product.image}`,
     "description": product.shortDescription || "Orijinal ambalajlı dişli yağı. Aynı gün sevkiyat ve toptan iskonto avantajı.",
     "sku": product.id,
     "mpn": product.id,
@@ -55,7 +55,7 @@ if (relatedProducts.length < 4) {
       "@type": "Brand",
       "name": product.brandName
     },
-    "category": "Endüstriyel Yağlar > dişli yağı",
+    "category": `Endüstriyel Yağlar > ${siteConfig.siteName}`,
     "offers": {
       "@type": "Offer",
       "url": `${siteConfig.domain}/urun/${product.id}`,
