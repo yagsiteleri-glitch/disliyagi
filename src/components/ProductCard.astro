@@ -30,7 +30,7 @@ const shortDesc = product.shortDescription || product.description || 'Aşınma �
   <div class="card-body">
     <div class="card-meta">
       <span class="card-brand">{brandLabel}</span>
-      <span class="card-visc">{product.viscosity}</span>
+      <span class="card-cat">Dişli & Redüktör Yağı</span>
     </div>
 
     <h3 class="card-title">
@@ -55,7 +55,9 @@ const shortDesc = product.shortDescription || product.description || 'Aşınma �
   .b2b-product-card {
     background: #ffffff;
     border-radius: 10px;
-    border: 1px solid #e2e8f0;
+    border: 1.5px solid #cbd5e1;
+    border-top: 3px solid #f59e0b;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -64,8 +66,8 @@ const shortDesc = product.shortDescription || product.description || 'Aşınma �
   }
   .b2b-product-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
-    border-color: #cbd5e1;
+    box-shadow: 0 10px 24px rgba(245, 158, 11, 0.15);
+    border-color: #f59e0b;
   }
   .card-img-wrap {
     position: relative;
@@ -114,25 +116,34 @@ const shortDesc = product.shortDescription || product.description || 'Aşınma �
   }
   .card-meta {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
     margin-bottom: 8px;
   }
   .card-brand {
-    font-size: 11.5px;
-    font-weight: 700;
+    display: inline-block;
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fcd34d;
+    font-size: 10.5px;
+    font-weight: 800;
     text-transform: uppercase;
-    color: #64748b;
     letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 5px;
+    line-height: 1.3;
   }
-  .card-visc {
-    background: #ffffff;
+  .card-cat {
+    display: inline-block;
+    background: #f8fafc;
     border: 1px solid #e2e8f0;
-    color: #334155;
+    color: #475569;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     padding: 2px 7px;
     border-radius: 4px;
+    line-height: 1.3;
   }
   .card-title {
     font-size: 14.5px;
