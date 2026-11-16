@@ -18,7 +18,8 @@ const { brandKey, brandName, brandLogo, heroTitle, heroDesc, metaDesc } = Astro.
 // Filter products for this brand
 const brandProducts = products.filter(p => {
   const b = (p.brandSlug || p.brand || '').toLowerCase().replace(/\s+/g, '-');
-  return b === brandKey.toLowerCase().replace(/\s+/g, '-');
+  const target = ((brandKey || Astro.props.brandSlug || '')).toLowerCase().replace(/\s+/g, '-');
+  return target ? b === target : false;
 });
 
 // Get unique viscosities for filter (sorted numerically)
