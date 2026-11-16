@@ -8,7 +8,9 @@
       "<p>Ağır sanayi tesislerinde konveyörler, kırıcılar, haddehaneler ve vinç redüktörleri sürekli yüksek tork altında çalışır. Bu redüktörlerde doğru dişli yağı seçimi, hem diş profil aşınmalarını önler hem de motorun çektiği elektrik akımını düşürerek enerji tasarrufu sağlar.</p>",
       "<h2>Mineral vs Sentetik (PAO)</h2>",
       "<p>Mobilgear 600 XP ve Shell Omala S2 GX gibi kaliteli mineral yağlar standart endüstriyel gereksinimleri karşılarken, aşırı sıcaklık ve sürekli ağır yük altında Shell Omala S4 WE veya Mobil Glygoyle serisi sentetik yağlar 5 kata kadar daha uzun yağ ömrü sunar.</p>"
-    ]
+    ],
+    "image": "/images/blog/sanayi-reduktor-yag-secimi.jpg",
+    "category": "Redüktör Yağları"
   },
   {
     "slug": "reduktorlerde-mikropitting-nedir-ve-nasil-onlenir",
@@ -19,7 +21,9 @@
       "<p>Mikropitting, sertleştirilmiş dişli yanağında mikron düzeyinde meydana gelen yüzey yorulması hasarıdır. Zamanla diş kırılmalarına yol açabilen bu aşınma tipi, özellikle rüzgar türbinleri ve ağır redüktörlerde kritik bir risktir.</p>",
       "<h2>Özel EP Katkı Teknolojisi</h2>",
       "<p>Gelişmiş aşırı basınç (EP) katkılarına sahip dişli yağları, metal-metale teması engelleyen elastohidrodinamik koruyucu bir bariyer oluşturarak mikropitting oluşumunu engeller.</p>"
-    ]
+    ],
+    "image": "/images/blog/reduktorlerde-mikropitting.jpg",
+    "category": "Teknik Bilgi"
   },
   {
     "slug": "sonsuz-vida-reduktorlerde-pag-poliglikol-yaglarin-ustunlugu",
@@ -30,6 +34,8 @@
       "<p>Sonsuz vida redüktörler yapısı gereği yüksek kayma sürtünmesine maruz kalır. Bu durum standart mineral yağların çabuk ısınmasına ve viskozite kaybına yol açar.</p>",
       "<h2>Düşük Sürtünme Katsayısı</h2>",
       "<p>Polialkilen glikol (PAG) bazlı sentetik dişli yağları, benzersiz düşük sürtünme katsayıları sayesinde çalışma sıcaklığını 10-15°C düşürür ve mekanik verimliliği %15'e kadar artırır.</p>"
-    ]
+    ],
+    "image": "/images/blog/sonsuz-vida-reduktor-pag.jpg",
+    "category": "Sentetik Yağlar"
   }
 ]

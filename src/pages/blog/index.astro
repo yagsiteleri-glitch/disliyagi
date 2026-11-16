@@ -2,19 +2,20 @@
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import blogPosts from '../../data/blogPosts.json';
+import siteConfig from '../../data/siteConfig.json';
 ---
 
 <Layout
-  title="Blog & Teknik Rehberler | Hidrolik Yağı"
-  description="Hidrolik yağ nedir, nasıl seçilir, hidrolik sistem bakımı ve endüstriyel madeni yağ kullanım alanları hakkında teknik makaleler ve rehberler."
+  title={`Blog & Teknik Rehberler | ${siteConfig.siteName}`}
+  description={`${siteConfig.siteName} nedir, doğru ürün seçimi, endüstriyel uygulama alanları ve verimlilik artıran püf noktaları hakkında uzman teknik makaleler.`}
 >
   <!-- Blog CollectionPage Schema.org JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Hidrolik Yağı Blog & Teknik Makaleler",
-    "description": "Endüstriyel hidrolik sistemlerin verimliliği, yağ analizi, doğru viskozite seçimi ve makine bakımına dair uzman içerikler.",
-    "url": "https://hidrolikyag.com/blog",
+    "name": `${siteConfig.siteName} Blog & Teknik Makaleler`,
+    "description": `${siteConfig.siteName} sistemlerinde verimlilik, doğru viskozite ve ürün seçimi, bakım ve teknik rehberler.`,
+    "url": `${siteConfig.domain}/blog`,
     "mainEntity": {
       "@type": "ItemList",
       "numberOfItems": blogPosts.length,
@@ -22,7 +23,7 @@ import blogPosts from '../../data/blogPosts.json';
         "@type": "ListItem",
         "position": idx + 1,
         "name": post.title,
-        "url": `https://hidrolikyag.com/blog/${post.slug}`,
+        "url": `${siteConfig.domain}/blog/${post.slug}`,
         "image": post.image
       }))
     }
@@ -34,9 +35,9 @@ import blogPosts from '../../data/blogPosts.json';
     <div class="container">
       <div class="blog-header">
         <span class="badge badge-amber">Teknik Kütüphane</span>
-        <h1>Hidrolik Yağ Blog & Teknik Makaleler</h1>
+        <h1>{siteConfig.siteName} Blog & Teknik Makaleler</h1>
         <p class="blog-lead">
-          Endüstriyel hidrolik sistemlerin verimliliği, yağ analizi, doğru viskozite seçimi ve makine bakımına dair uzman içerikler.
+          {siteConfig.siteName} sistemlerinde maksimum verimlilik, doğru ürün seçimi ve periyodik bakım standartlarına dair uzman teknik içerikler.
         </p>
       </div>
 
