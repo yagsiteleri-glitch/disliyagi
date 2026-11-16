@@ -24,14 +24,14 @@ const packageTypes = Array.from(new Set(products.map(p => p.packageType))).filte
 ---
 
 <Layout
-  title={`Tüm Hidrolik Yağları & Ürün Kataloğu | ${siteConfig.siteName}`}
+  title={`Tüm ${siteConfig.siteName} Çeşitleri & Ürün Kataloğu | ${siteConfig.siteName}`}
   description="Artoil, Castrol, Mobil, Petrol Ofisi ve Shell hidrolik yağı çeşitleri. ISO VG 32, 46, 68, 100 viskozite seçenekleri, 16L teneke ve 208L varil toptan fiyatları."
 >
   <!-- Shop CollectionPage Schema.org JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Endüstriyel Hidrolik Yağları Kataloğu",
+    "name": `Endüstriyel ${siteConfig.siteName} Kataloğu`,
     "description": "Artoil, Castrol, Mobil, Petrol Ofisi ve Shell hidrolik yağı çeşitleri.",
     "url": `${siteConfig.domain}/magaza`,
     "mainEntity": {

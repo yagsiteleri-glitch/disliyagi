@@ -1,10 +1,11 @@
 ---
+import siteConfig from '../data/siteConfig.json';
 import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 ---
 
 <Layout
-  title="Toptan dişli yağı Fiyat Teklifi Al | disliyagi.com"
+  title={`Toptan ${siteConfig.siteName} Fiyat Teklifi Al | ${siteConfig.siteName}`}
   description="Artoil, Castrol, Mobil, Petrol Ofisi ve Shell dişli yağı toptan ve perakende iskonto teklifi alın. İstanbul içi aynı gün, Türkiye geneli ambar teslimatı."
 >
   <Breadcrumb items={[{ label: "Teklif Al" }]} />

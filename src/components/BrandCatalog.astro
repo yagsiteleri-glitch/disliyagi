@@ -38,14 +38,14 @@ const allBrandsList = [
 ---
 
 <Layout
-  title={`${brandName} Hidrolik Yağları Fiyatları & Çeşitleri | ${siteConfig.siteName}`}
+  title={`${brandName} ${siteConfig.siteName} Fiyatları & Çeşitleri | ${siteConfig.siteName}`}
   description={metaDesc}
 >
   <!-- CollectionPage & ItemList Schema.org JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": `${brandName} Hidrolik Yağları`,
+    "name": `${brandName} ${siteConfig.siteName}`,
     "description": metaDesc,
     "url": `${siteConfig.domain}/${brandKey}`,
     "mainEntity": {
