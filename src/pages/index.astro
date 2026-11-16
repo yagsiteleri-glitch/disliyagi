@@ -1104,4 +1104,32 @@ const shellProducts = products.filter(p => (p.brandSlug || p.brand?.toLowerCase(
       font-size: 21px;
     }
   }
+
+  /* ENFORCE 2-COLUMN PRODUCT GRID ON TABLET & MOBILE */
+  @media (max-width: 992px) {
+    .product-cards-grid,
+    .centered-flex-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px !important;
+    }
+    .product-cards-grid > :global(*),
+    .centered-flex-grid > :global(*),
+    .centered-flex-grid :global(.product-card),
+    .centered-flex-grid :global(.b2b-product-card) {
+      flex: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+    }
+  }
+  @media (max-width: 640px) {
+    .product-cards-grid,
+    .centered-flex-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px !important;
+    }
+  }
+
 </style>
