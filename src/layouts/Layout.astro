@@ -9,6 +9,7 @@ const castrolProducts = products.filter(p => matchBrand(p, 'castrol'));
 const mobilProducts = products.filter(p => matchBrand(p, 'mobil'));
 const poProducts = products.filter(p => matchBrand(p, 'petrol-ofisi'));
 const shellProducts = products.filter(p => matchBrand(p, 'shell'));
+const jetProducts = products.filter(p => matchBrand(p, 'jet'));
 
 interface Props {
   title?: string;
@@ -238,6 +239,19 @@ const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(raw
             </ul>
           </li>
 
+          <!-- JET Menu -->
+          <li class="nav-item has-dropdown">
+            <a href="/jet" class="nav-a">
+              JET <i class="fas fa-chevron-down nav-caret"></i>
+            </a>
+            <ul class="sub-nav-menu">
+              <li class="sub-nav-highlight"><a href="/jet"><strong>Tüm JET Ürünleri ({jetProducts.length}) →</strong></a></li>
+              {jetProducts.slice(0, 5).map(p => (
+                <li><a href={`/urun/${p.id}`}>{p.name}</a></li>
+              ))}
+            </ul>
+          </li>
+
           <li class="nav-item"><a href="/magaza" class="nav-a">Mağaza</a></li>
         </ul>
 
@@ -408,6 +422,23 @@ const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(raw
             </div>
           </li>
 
+          <!-- JET Accordion -->
+          <li class="drawer-accordion-item">
+            <button class="drawer-accordion-btn" type="button">
+              <span class="acc-brand-title">JET Motorsport</span>
+              <div class="acc-right">
+                <span class="acc-count-pill">{jetProducts.length}</span>
+                <i class="fas fa-chevron-down acc-arrow"></i>
+              </div>
+            </button>
+            <div class="drawer-accordion-panel">
+              <a href="/jet" class="drawer-sublink highlight">Tüm JET Ürünleri ({jetProducts.length}) →</a>
+              {jetProducts.slice(0, 5).map(p => (
+                <a href={`/urun/${p.id}`} class="drawer-sublink">{p.name}</a>
+              ))}
+            </div>
+          </li>
+
           <li class="drawer-section-label">Diğer Bağlantılar</li>
           <li>
             <a href="/blog" class="drawer-link"><i class="fas fa-book-open"></i> <span>Blog & Teknik Makaleler</span></a>
@@ -448,7 +479,7 @@ const resolvedOgImage = rawOgImage.startsWith('http') ? rawOgImage : new URL(raw
             />
           </a>
           <p class="footer-desc">
-            <strong>disliyagi.com</strong>, Türkiye genelinde endüstriyel hidrolik ve madeni yağ tedarikinde yetkin çözüm ortağınızdır. Orijinal ambalajlı ürünler, yetkili distribütör garantisi ve aynı gün sevkiyat avantajı.
+            <strong>disliyagi.com</strong>, ağır sanayi tipi kapalı redüktörler, sonsuz vida dişliler, planet mekanizmalar ve diferansiyeller için PAO/PAG sentetik ve EP katkılı mineral dişli yağlarının yetkili satış merkezidir.
           </p>
           <div class="footer-badges">
             <span class="f-badge"><span class="badge-dot"></span> Orijinal Ürün Garantisi</span>

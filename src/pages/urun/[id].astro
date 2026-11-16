@@ -95,7 +95,7 @@ if (relatedProducts.length < 4) {
       <div class="single-details-box">
         <!-- Top Meta Tags -->
         <div class="product-meta-row">
-          <a href={`/${product.brand}`} class="meta-pill brand-pill">
+          <a href={`/${(product.brandSlug || product.brand || "").toLowerCase().replace(/\s+/g, "-")}`} class="meta-pill brand-pill">
             {product.brandName}
           </a>
           <span class="meta-pill visc-pill">
@@ -144,7 +144,7 @@ if (relatedProducts.length < 4) {
 
         <!-- Technical Documents -->
         <div class="tech-docs-grid">
-          <a href={product.msdsUrl} target="_blank" rel="noopener noreferrer" class="doc-download-pill">
+          <a href={msdsHref} target="_blank" rel="noopener noreferrer" class="doc-download-pill">
             <div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
             <div class="doc-info">
               <strong>MSDS</strong>
@@ -152,7 +152,7 @@ if (relatedProducts.length < 4) {
             </div>
             <i class="fas fa-download doc-dl-icon"></i>
           </a>
-          <a href={product.tdsUrl} target="_blank" rel="noopener noreferrer" class="doc-download-pill">
+          <a href={tdsHref} target="_blank" rel="noopener noreferrer" class="doc-download-pill">
             <div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
             <div class="doc-info">
               <strong>TDS</strong>

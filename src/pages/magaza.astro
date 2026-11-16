@@ -25,14 +25,14 @@ const packageTypes = Array.from(new Set(products.map(p => p.packageType))).filte
 
 <Layout
   title={`Tüm ${siteConfig.siteName} Çeşitleri & Ürün Kataloğu | ${siteConfig.siteName}`}
-  description="Artoil, Castrol, Mobil, Petrol Ofisi ve Shell hidrolik yağı çeşitleri. ISO VG 32, 46, 68, 100 viskozite seçenekleri, 16L teneke ve 208L varil toptan fiyatları."
+  description="Mobilgear 600 XP, Mobil SHC, Shell Omala, Castrol Alpha/Alphasyn, Petrol Ofisi Gravis, Artoil Acrux ve JET LS GL-5 dişli yağlarında stoktan hemen teslimat."
 >
   <!-- Shop CollectionPage Schema.org JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": `Endüstriyel ${siteConfig.siteName} Kataloğu`,
-    "description": "Artoil, Castrol, Mobil, Petrol Ofisi ve Shell hidrolik yağı çeşitleri.",
+    "description": "Mobilgear 600 XP, Mobil SHC, Shell Omala, Castrol Alpha/Alphasyn, Petrol Ofisi Gravis, Artoil Acrux ve JET LS GL-5 dişli yağlarında stoktan hemen teslimat.",
     "url": `${siteConfig.domain}/magaza`,
     "mainEntity": {
       "@type": "ItemList",
@@ -56,9 +56,9 @@ const packageTypes = Array.from(new Set(products.map(p => p.packageType))).filte
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
           Ürün Kataloğu
         </span>
-        <h1>Endüstriyel Hidrolik Yağları</h1>
+        <h1>Sanayi Tipi Redüktör & Dişli Yağları Kataloğu</h1>
         <p>
-          Türkiye'nin lider madeni yağ markalarının orijinal ambalajlı hidrolik yağları. Fabrika dolumları ve perakende ihtiyaçlarınız için faturalı aynı gün sevkiyat.
+          Türkiye'nin lider madeni yağ markalarının orijinal ambalajlı dişli ve redüktör yağı ürünleri. Fabrika dolumları ve perakende ihtiyaçlarınız için faturalı aynı gün sevkiyat.
         </p>
       </div>
     </div>
@@ -209,7 +209,7 @@ const packageTypes = Array.from(new Set(products.map(p => p.packageType))).filte
             <h5>Toplu Alım Desteği</h5>
             <p>Fabrika ve atölyeler için palet ve varil bazında özel fiyat listesi talep edin.</p>
             <a
-              href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent('[hidrolikyag.com] TOPTAN FIYAT LISTESI TALEBI\n\nMerhaba, fabrika ve atolyemiz icin hidrolik yaglarinda toptan iskonto ve fiyat listesi talep ediyorum.')}`}
+              href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent('[disliyagi.com] TOPTAN FIYAT LISTESI TALEBI\n\nMerhaba, fabrika ve atolyemiz icin dişli ve redüktör yağında toptan iskonto ve fiyat listesi talep ediyorum.')}`}
               target="_blank"
               rel="noopener noreferrer"
               class="btn-sidebar-wa"
@@ -304,7 +304,7 @@ const packageTypes = Array.from(new Set(products.map(p => p.packageType))).filte
                   <div class="shop-card-actions">
                     <a href={`/urun/${p.id}`} class="btn-detail">İncele</a>
                     <a
-                      href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(`[hidrolikyag.com] TEKLIF TALEBI\n\nUrun: ${p.name}\n\nMerhaba, bu urun icin guncel toptan ve perakende fiyat teklifi rica ediyorum.`)}`}
+                      href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(`[disliyagi.com] TEKLIF TALEBI\n\nUrun: ${p.name}\n\nMerhaba, bu urun icin guncel toptan ve perakende fiyat teklifi rica ediyorum.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       class="btn-quote"
