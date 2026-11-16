@@ -4,16 +4,16 @@ import ProductCard from '../components/ProductCard.astro';
 import products from '../data/products.json';
 import blogPosts from '../data/blogPosts.json';
 
-const artoilProducts = products.filter(p => p.brand === 'artoil');
-const castrolProducts = products.filter(p => p.brand === 'castrol');
-const mobilProducts = products.filter(p => p.brand === 'mobil');
-const poProducts = products.filter(p => p.brand === 'petrol-ofisi');
-const shellProducts = products.filter(p => p.brand === 'shell');
+const artoilProducts = products.filter(p => (p.brandSlug || p.brand?.toLowerCase()) === 'artoil');
+const castrolProducts = products.filter(p => (p.brandSlug || p.brand?.toLowerCase()) === 'castrol');
+const mobilProducts = products.filter(p => (p.brandSlug || p.brand?.toLowerCase()) === 'mobil');
+const poProducts = products.filter(p => (p.brandSlug || p.brand?.toLowerCase().replace(/\s+/g, '-')) === 'petrol-ofisi');
+const shellProducts = products.filter(p => (p.brandSlug || p.brand?.toLowerCase()) === 'shell');
 ---
 
 <Layout
   title="dişli yağı Fiyatları & Çeşitleri | Toptan Endüstriyel Yağlar"
-  description="Artoil, Castrol, Mobil, Petrol Ofisi ve Shell dişli yağı çeşitleri. ISO VG 32, 46, 68 endüstriyel hidrolik sistem yağlarında toptan iskonto ve aynı gün stoktan sevkiyat."
+  description="Artoil, Castrol, Mobil, Petrol Ofisi ve Shell dişli yağı çeşitleri. ISO VG 32, 46, 68 endüstriyel endüstriyel şanzıman ve redüktör dişli yağlarında toptan iskonto ve aynı gün stoktan sevkiyat."
 >
   <!-- HERO BRAND BANNERS SHOWCASE (Mobile Responsive, 5 Inner Brand Links) -->
   <section class="banner-grid-section" aria-label="Markalarımız ve dişli yağı Çeşitleri">
@@ -276,7 +276,7 @@ const shellProducts = products.filter(p => p.brand === 'shell');
       <div class="section-divider-line"></div>
       <div class="seo-content-box">
         <h3>dişli yağı Nedir?</h3>
-        <p>dişli yağı, çeşitli endüstriyel ve otomotiv uygulamalarında sıklıkla kullanılan bir sıvıdır. Su ile birlikte, hidrolik sistemlerin temel bileşenlerinden birini oluşturan bu yağ, mekanik ekipmanların çalışmasını sağlamak, enerji iletimini kolaylaştırmak ve sistemin genel verimliliğini artırmak amacıyla tasarlanmıştır.</p>
+        <p>dişli yağı, çeşitli endüstriyel ve otomotiv uygulamalarında sıklıkla kullanılan bir sıvıdır. Su ile birlikte, kapalı dişli kutuları ve diferansiyel sistemlerinin temel koruyucularından birini oluşturan bu yağ, mekanik ekipmanların çalışmasını sağlamak, enerji iletimini kolaylaştırmak ve sistemin genel verimliliğini artırmak amacıyla tasarlanmıştır.</p>
 
         <h3>dişli yağının Tanımı ve Özellikleri</h3>
         <p>dişli yağı, yüksek basınç altında etkili bir şekilde çalışan ve enerji iletimi için gereksinim duyulan bir sıvıdır. Temel özellikleri arasında yüksek viskozite, düşük buharlaşma oranı, geniş sıcaklık aralığında stabil kalabilme yeteneği ve iyi bir akışkanlık bulunmaktadır.</p>
